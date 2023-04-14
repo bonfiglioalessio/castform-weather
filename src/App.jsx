@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Weather from "./components/Weather";
 import Card from "./components/Card";
 import Forecast from "./components/Forecast";
+import getDate from "./helpers/getDate";
 
 function App() {
   const [data, setData] = useState([]);
@@ -13,24 +14,22 @@ function App() {
 
   const successCallback = (pos) => {
     const { latitude: lat, longitude: lon } = pos.coords;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`)
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`
+    )
       .then((res) => res.json())
       .then((data) => {
         setCity(data);
-      })
+      });
   };
 
   const errorCallback = (error) => {
     console.log(error);
-
   };
-
-  // useEffect(() => {
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }
-  // }, []);
+  };
 
   const fetchData = async () => {
     const response = await fetch(
@@ -82,40 +81,34 @@ function App() {
         onChange={(e) => handleChange(e)}
       />
 
-      {
-        city !== '' ? (
-          <>
-            <Hero
-              city={city.name}
-              country={city.sys?.country}
-              // date={location ? getDate(location?.localtime) : "Thu, 13 Apr"}
-              date={"Thu, 13 Apr"}
-            />
+      {city !== "" ? (
+        <>
+          <Hero city={city.name} country={city.sys?.country} date={getDate()} />
 
-            <Weather
-              temperature={city.main?.temp}
-              // img={city?.weather_icons}
-              weather_descriptions={city.weather[0].main}
-            />
+          <Weather
+            temperature={city.main?.temp}
+            img={city?.weather[0].icon}
+            weather_descriptions={city.weather[0].main}
+          />
 
-            <Card
-              visibility={city?.visibility / 1000}
-              wind_speed={city?.wind?.speed}
-              humidity={city?.main?.humidity}
-            />
+          <Card
+            visibility={city?.visibility / 1000}
+            wind_speed={city?.wind?.speed}
+            humidity={city?.main?.humidity}
+          />
 
-            {/* <Forecast /> */}
-            <p></p>
-          </>
-        ) : (
-          <>
-            <p>Type the city in input</p>
-            <p><a href="#" onClick={getLocation}>or click here to use your location!</a></p>
-          </>
-        )
-      }
-
-
+          {/* <Forecast /> */}
+        </>
+      ) : (
+        <>
+          <p>Type the city in input</p>
+          <p>
+            <a href="#" onClick={getLocation}>
+              or click here to use your location!
+            </a>
+          </p>
+        </>
+      )}
     </div>
   );
 }

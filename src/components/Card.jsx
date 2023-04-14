@@ -1,5 +1,5 @@
-import umbrella from "../assets/umbrella.png";
-import wind from "../assets/wind.png";
+import visibility_img from "../assets/eye.png";
+import wind_img from "../assets/wind.png";
 import humidity_img from "../assets/humidity.png";
 
 const Card = (props) => {
@@ -7,12 +7,12 @@ const Card = (props) => {
 
   const card = [
     {
-      img: umbrella,
+      img: visibility_img,
       title: "Visibility",
       detail: `${visibility}km`,
     },
     {
-      img: wind,
+      img: wind_img,
       title: "Wind",
       detail: `${wind_speed}km/h`,
     },

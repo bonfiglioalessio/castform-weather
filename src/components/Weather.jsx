@@ -1,9 +1,13 @@
 const Weather = (props) => {
-  const { img="https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png", temperature, weather_descriptions } = props;
+  const { img, temperature, weather_descriptions, description } = props;
   return (
     <section className="weather_container">
       <div className="weather_icon">
-        <img src={img} width={140} alt="" />
+        <img
+          src={`http://openweathermap.org/img/wn/${img}@4x.png`}
+          width="100%"
+          alt={description}
+        />
       </div>
 
       <div className="text_container">
