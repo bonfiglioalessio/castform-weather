@@ -32,13 +32,13 @@ const Navbar = (props) => {
       </nav>
 
       <ul className={clsx("list", value !== "" ? "glassed" : "")}>
-        {filteredArr?.map(({ label, name }) => {
+        {filteredArr?.map(({ country, state, name, lat, lon }) => {
           return (
             <li
               key={Math.random()}
-              onClick={() => onClick({ name })}
+              onClick={() => onClick({ lat, lon })}
             >
-              {label}
+              {name}, {state}, {country}
             </li>
           );
         })}
