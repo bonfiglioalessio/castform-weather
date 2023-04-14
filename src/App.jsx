@@ -34,7 +34,7 @@ function App() {
   const fetchData = async () => {
     const response = await fetch(
       // `http://api.positionstack.com/v1/forward?access_key=d93f994bb49b872c6e324a21dc2afb9b&query=${input}`
-      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=10&appid=3253741a4866a77b255992e2c6c3db41`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=10&appid=3253741a4866a77b255992e2c6c3db41`
     );
     const json = await response.json();
     setData(json);
