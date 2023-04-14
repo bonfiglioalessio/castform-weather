@@ -5,7 +5,7 @@ const Weather = (props) => {
       <div className="weather_icon">
         <img
           src={`https://openweathermap.org/img/wn/${img}@4x.png`}
-          width="100%"
+          width="129px"
           alt={description}
         />
       </div>
