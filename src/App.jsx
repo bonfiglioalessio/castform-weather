@@ -12,8 +12,8 @@ function App() {
   const [city, setCity] = useState("");
 
   const successCallback = (pos) => {
-    const { latitude, longitude } = pos.coords;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=3253741a4866a77b255992e2c6c3db41`)
+    const { latitude: lat, longitude: lon } = pos.coords;
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`)
       .then((res) => res.json())
       .then((data) => {
         setCity(data);
@@ -72,9 +72,6 @@ function App() {
   const handleClick = ({ lat, lon }) => {
     fetchCityDetails({ lat, lon });
   };
-
-  console.log(city);
-
 
   return (
     <div className="container">
