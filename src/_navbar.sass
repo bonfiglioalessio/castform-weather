@@ -25,7 +25,6 @@ nav
   position: relative
   background: var(--light)
   border: 1px solid var(--light)
-  width: 70%
   border-radius: 0.5rem
   & input
     background: inherit
@@ -40,6 +39,15 @@ nav
     position: absolute
     right: 0.5rem
     cursor: pointer
+
+.hidden 
+  display: none
+
+.open
+  width: 100%
+
+.closed
+  width: 80%
 
 input:focus-visible
   outline: none

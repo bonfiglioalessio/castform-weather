@@ -28,7 +28,7 @@ const Card = (props) => {
       {card.map(({ img, title, detail }) => (
         <div key={Math.random()} className="card_container">
           <div className="card_img">
-            <div className="card_box glassed">
+            <div className="card_box">
               <img src={img} alt="" />
             </div>
             <p>{title}</p>
