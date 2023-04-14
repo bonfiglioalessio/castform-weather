@@ -12,8 +12,8 @@ function App() {
   const [city, setCity] = useState("");
 
   const successCallback = (pos) => {
-    const { lat, lon } = pos.coords;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41`)
+    const { latitude, longitude } = pos.coords;
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=3253741a4866a77b255992e2c6c3db41`)
       .then((res) => res.json())
       .then((data) => {
         setCity(data);
@@ -22,6 +22,7 @@ function App() {
 
   const errorCallback = (error) => {
     console.log(error);
+
   };
 
   // useEffect(() => {
@@ -72,6 +73,8 @@ function App() {
     fetchCityDetails({ lat, lon });
   };
 
+  console.log(city);
+
 
   return (
     <div className="container">
@@ -104,11 +107,12 @@ function App() {
               humidity={city?.main?.humidity}
             />
 
-            <Forecast />
+            {/* <Forecast /> */}
+            <p></p>
           </>
         ) : (
           <>
-            <p>Loading data...</p>
+            <p>Type the city in input</p>
             <p><a href="#" onClick={getLocation}>or click here to use your location!</a></p>
           </>
         )
