@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.sass";
-import getDate from "./helpers/getDate";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Weather from "./components/Weather";
@@ -105,7 +104,7 @@ function App() {
               humidity={city?.main?.humidity}
             />
 
-            {/*<Forecast /> */}
+            <Forecast />
           </>
         ) : (
           <>
