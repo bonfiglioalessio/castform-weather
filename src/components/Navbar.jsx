@@ -7,14 +7,14 @@ const Navbar = (props) => {
   const { onChange, onClick, value, filteredArr } = props;
   const inputRef = useRef();
 
-  const handleClick = () => {
-    console.log("clicked menu");
-  };
+  // const handleClick = () => {
+  //   console.log("clicked menu");
+  // };
 
   return (
     <header>
       <nav>
-        <div className={clsx("input", value !== "" ? "closed" : "open")}>
+        <div className={clsx("input", value !== "" ? "closed" : "closed")}>
           <input
             type="search"
             name="geo"
@@ -30,7 +30,7 @@ const Navbar = (props) => {
             onClick={() => inputRef.current.focus()}
           />
         </div>
-        <div className={clsx("box_icon", value !== "" ? "" : "hidden")}>
+        <div className={clsx("box_icon", value !== "" ? "hidden" : "hidden")}>
           <img src={menuIcon} alt="" onClick={() => handleClick()} />
         </div>
       </nav>
