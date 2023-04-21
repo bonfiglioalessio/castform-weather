@@ -2,7 +2,7 @@
     display: flex
     justify-content: space-between
     border-bottom: 1px solid var(--color)
-    padding: 1rem 0
+    padding: 2rem 0 1rem 0
 
 .forecast_container
     display: flex
@@ -21,19 +21,22 @@ span
     gap: .7rem
     overflow: scroll
     margin: 0 -1rem
-    padding: 1rem
+    padding: .5rem 1rem
 
 .box
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
-    background: white !important
-    border-radius: 2rem !important
+    background-color: white
+    backdrop-filter: blur(10px)
+    border: .1px solid #e6e6e6a9
+    border-radius: 1rem
     padding: .5rem
-    width: 60px
+    width: 75px
     height: 90px
     flex: none
-
     & p
         font-size: .7rem
+        color: var(--text)
+        font-weight: 500

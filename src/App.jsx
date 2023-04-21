@@ -11,6 +11,7 @@ function App() {
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
   const [city, setCity] = useState("");
+  const [forecast, setForecast] = useState("");
 
   const successCallback = (pos) => {
     const { latitude: lat, longitude: lon } = pos.coords;
@@ -40,12 +41,21 @@ function App() {
     setData(json);
   };
 
+  const fetchForecast = async ({ lat, lon }) => {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric&units=metric`
+    );
+    const json = await response.json();
+    setForecast(json);
+  };
+  
   const fetchCityDetails = async ({ lat, lon }) => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`
     );
     const data = await response.json();
     setCity(data);
+    fetchForecast({ lat, lon });
   };
 
   useEffect(() => {
@@ -60,6 +70,7 @@ function App() {
       fetchData();
     }
   }, [input]);
+
 
   const handleChange = (e) => {
     if (e.target.value === "") {
@@ -97,7 +108,7 @@ function App() {
             humidity={city?.main?.humidity}
           />
 
-          {/* <Forecast /> */}
+          <Forecast data={forecast?.list} />
         </>
       ) : (
         <>
