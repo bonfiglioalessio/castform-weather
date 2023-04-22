@@ -21,6 +21,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setCity(data);
+        fetchForecast({ lat, lon });
       });
   };
 

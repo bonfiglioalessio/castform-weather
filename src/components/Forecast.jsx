@@ -11,10 +11,10 @@ const Forecast = (props) => {
           <p>Hourly Forecast</p>
         </div>
         <div className="forecast_container">
-          <span>Next 5 Days</span>
+          {/* <span>Next 5 Days</span>
           <div className="arrow">
             <img src={arrow} width={7} alt="" />
-          </div>
+          </div> */}
         </div>
       </div>
 
