@@ -6,12 +6,14 @@ import Weather from "./components/Weather";
 import Card from "./components/Card";
 import Forecast from "./components/Forecast";
 import getDate from "./helpers/getDate";
+import Next5days from "./components/Next5days";
 
 function App() {
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
   const [city, setCity] = useState("");
   const [forecast, setForecast] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
   const successCallback = (pos) => {
     const { latitude: lat, longitude: lon } = pos.coords;
@@ -49,7 +51,7 @@ function App() {
     const json = await response.json();
     setForecast(json);
   };
-  
+
   const fetchCityDetails = async ({ lat, lon }) => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`
@@ -71,7 +73,6 @@ function App() {
       fetchData();
     }
   }, [input]);
-
 
   const handleChange = (e) => {
     if (e.target.value === "") {
@@ -109,7 +110,19 @@ function App() {
             humidity={city?.main?.humidity}
           />
 
-          <Forecast data={forecast?.list} />
+          <Forecast
+            next5Days={() => setIsVisible(!isVisible)}
+            data={forecast?.list}
+          />
+
+          {isVisible ? (
+            <Next5days
+              data={forecast}
+              city={city.name}
+              country={city.sys?.country}
+              clickBack={() => setIsVisible(!isVisible)}
+            />
+          ) : null}
         </>
       ) : (
         <>

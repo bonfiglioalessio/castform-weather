@@ -2,7 +2,7 @@ import arrow from "../assets/arrow.svg";
 import moment from "moment";
 
 const Forecast = (props) => {
-  const { data } = props;
+  const { data, next5Days } = props;
   let slicedData = data?.slice(0, 12);
   return (
     <section>
@@ -11,10 +11,10 @@ const Forecast = (props) => {
           <p>Hourly Forecast</p>
         </div>
         <div className="forecast_container">
-          {/* <span>Next 5 Days</span>
+          <span onClick={next5Days}>Next 5 Days</span>
           <div className="arrow">
             <img src={arrow} width={7} alt="" />
-          </div> */}
+          </div>
         </div>
       </div>
 

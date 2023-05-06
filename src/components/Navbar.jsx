@@ -14,7 +14,7 @@ const Navbar = (props) => {
   return (
     <header>
       <nav>
-        <div className={clsx("input", value !== "" ? "closed" : "closed")}>
+        <div className={clsx("input", value !== "" ? "open" : "open")}>
           <input
             type="search"
             name="geo"
