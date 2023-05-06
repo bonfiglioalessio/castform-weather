@@ -15,7 +15,7 @@ const Next5days = (props) => {
   ];
 
   return (
-    <section id="nextdays">
+    <section id="nextdays" className="container">
       <header className="nav">
         <div className="nav" onClick={() => clickBack()}>
           <img
