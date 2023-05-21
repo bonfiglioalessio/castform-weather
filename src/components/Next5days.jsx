@@ -83,11 +83,7 @@ const Next5days = (props) => {
               </div>
             </div>
             {chart && (
-              <Chart
-                day={day}
-                data={allData}
-                // onMouseMove={(e) => console.log(card)}
-              />
+              <Chart day={day} data={allData} onMouseMove={(e) => null} />
             )}
           </>
         );
