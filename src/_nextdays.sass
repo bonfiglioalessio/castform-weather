@@ -1,199 +1,90 @@
-#nextdays
-  position: fixed
-  top: 0
-  left: 0
+.daily_forecast_section
+  padding: 1rem 1.15rem 0.85rem 1.15rem
   width: 100%
-  height: 100%
-  z-index: 20
-  background: rgba(30, 32, 38, 0.85)
-  padding: 1.25rem 1rem 2.5rem 1rem
-  backdrop-filter: blur(16px)
-  -webkit-backdrop-filter: blur(16px)
-  overflow-y: auto
-  overflow-x: hidden
 
-.nav
+.daily_header
   display: flex
-  align-items: center
-  justify-content: space-between
-  gap: 0.5rem
-  color: var(--white)
-  margin-bottom: 1.5rem
-  padding-bottom: 0.75rem
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12)
-
-.nav_back
-  display: inline-flex
   align-items: center
   gap: 0.45rem
-  cursor: pointer
-  color: var(--white)
-  font-size: 0.95rem
-  font-weight: 500
-  transition: opacity 0.2s ease
-  &:hover
-    opacity: 0.8
+  margin-bottom: 0.65rem
+  padding-bottom: 0.5rem
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
 
-.back_icon
-  width: 18px
-  height: 18px
+.calendar_icon
+  color: #38bdf8
 
-.days_cards_list
-  display: flex
-  flex-direction: column
-  gap: 0.75rem
-  max-width: 580px
-  margin: 0 auto
-
-.day_item_wrapper
-  display: flex
-  flex-direction: column
-  gap: 0.4rem
-
-.day_meta
-  display: flex
-  flex-direction: column
-  gap: 0.15rem
-  & h2
-    font-size: 1rem
-    font-weight: 500
-    color: var(--title)
-  & p
-    font-size: 0.8rem
-
-.day_weather_info
-  display: flex
-  align-items: center
-  gap: 0.75rem
-
-.temp_summary
-  display: flex
-  flex-direction: column
-  align-items: flex-end
-  white-space: nowrap
-  line-height: 1.25
-
-.card_main_temp
-  font-size: 1.15rem
+.daily_heading
+  font-size: 0.76rem
   font-weight: 600
-  color: var(--title)
+  color: rgba(255, 255, 255, 0.7)
+  letter-spacing: 0.05em
+  text-transform: uppercase
 
-.temp_sub
-  font-size: 0.75rem
-  color: var(--secondary)
-  white-space: nowrap
-
-.weather_symbol
-  width: 40px
-  height: 40px
-  object-fit: contain
-
-.expand_chevron
-  color: var(--secondary)
-  transition: transform 0.25s ease, color 0.2s ease
-  flex-shrink: 0
-  &.open
-    transform: rotate(180deg)
-    color: var(--title)
-
-.chart_wrapper
-  background: #ffffff
-  border: 1px solid #eef0f3
-  border-radius: 1rem
-  padding: 1rem 0.85rem 0.5rem 0.85rem
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06)
-  animation: chartFadeIn 0.22s ease-out
-
-.chart_header
-  display: flex
-  justify-content: space-between
-  align-items: center
-  margin-bottom: 0.6rem
-  padding: 0 0.25rem
-
-.chart_title_group
+.daily_list
   display: flex
   flex-direction: column
-  gap: 0.1rem
+  flex: 1
+  justify-content: space-between
 
-.chart_title
-  color: var(--title)
+.daily_row_item
+  display: grid
+  grid-template-columns: 48px 28px 32px 1fr 32px
+  align-items: center
+  gap: 0.5rem
+  padding: 0.65rem 0
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+
+  &:last-child
+    border-bottom: none
+
+.daily_day_name
+  font-size: 0.88rem
+  font-weight: 500
+  color: #ffffff
+
+.daily_icon_cell
+  display: flex
+  align-items: center
+  justify-content: center
+
+.daily_weather_icon
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+
+.daily_min_val
+  font-size: 0.85rem
+  font-weight: 500
+  color: rgba(255, 255, 255, 0.6)
+  text-align: right
+
+.daily_bar_track
+  position: relative
+  height: 4.5px
+  background: rgba(0, 0, 0, 0.25)
+  border-radius: 9999px
+  overflow: visible
+  margin: 0 0.25rem
+
+.daily_bar_fill
+  position: absolute
+  top: 0
+  height: 100%
+  border-radius: 9999px
+  background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 40%, #fbbf24 100%)
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4)
+
+.daily_current_dot
+  position: absolute
+  top: -3px
+  width: 10.5px
+  height: 10.5px
+  border-radius: 50%
+  background: #ffffff
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.4)
+  transform: translateX(-50%)
+  z-index: 2
+
+.daily_max_val
   font-size: 0.88rem
   font-weight: 600
-
-.chart_subtitle
-  color: var(--secondary)
-  font-size: 0.72rem
-
-.chart_range_badge
-  display: inline-flex
-  align-items: center
-  gap: 0.35rem
-  background: #f4f5f7
-  color: var(--text)
-  padding: 0.25rem 0.6rem
-  border-radius: 0.5rem
-  font-size: 0.75rem
-  font-weight: 500
-  & .divider
-    color: var(--secondary)
-
-.chart_empty
-  background: #ffffff
-  border: 1px solid #eef0f3
-  border-radius: 1rem
-  padding: 1.5rem
-  text-align: center
-  color: var(--secondary)
-  font-size: 0.85rem
-
-.chart_custom_tooltip
-  background: #ffffff
-  border: 1px solid #e8eaee
-  border-radius: 0.75rem
-  padding: 0.6rem 0.85rem
-  color: var(--text)
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08)
-
-.tooltip_header
-  display: flex
-  align-items: center
-  justify-content: space-between
-  gap: 0.5rem
-  font-size: 0.75rem
-  color: var(--secondary)
-  border-bottom: 1px solid #f0f2f5
-  padding-bottom: 0.25rem
-
-.tooltip_time
-  font-weight: 600
-  color: var(--title)
-
-.tooltip_body
-  display: flex
-  align-items: baseline
-  gap: 0.45rem
-  margin-top: 0.35rem
-
-.tooltip_temp
-  font-size: 1.15rem
-  font-weight: 700
-  color: var(--title)
-
-.tooltip_desc
-  font-size: 0.75rem
-  color: var(--secondary)
-  text-transform: capitalize
-
-.tooltip_footer
-  font-size: 0.72rem
-  color: var(--secondary)
-  margin-top: 0.25rem
-
-@keyframes chartFadeIn
-  from
-    opacity: 0
-    transform: translateY(-6px)
-  to
-    opacity: 1
-    transform: translateY(0)
+  color: #ffffff
+  text-align: left

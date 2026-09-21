@@ -69,87 +69,93 @@ const Next5days = ({ data, clickBack }) => {
   };
 
   return (
-    <section id="nextdays" className="container">
-      <header className="nav">
-        <div className="nav_back" onClick={clickBack}>
-          <img
-            className="back_icon"
-            src={backIcon}
-            alt="back to the homepage"
-          />
-          <span>Back</span>
-        </div>
-        <h5>
-          Next 5 days · {city?.name}, {city?.country}
-        </h5>
-      </header>
+    <section id="nextdays" className="vision_sheet_modal">
+      <div className="sheet_container">
+        <header className="sheet_nav_bar">
+          <button
+            type="button"
+            className="glass_pill nav_back_btn"
+            onClick={clickBack}
+          >
+            <img
+              className="back_icon"
+              src={backIcon}
+              alt="back"
+            />
+            <span>Back</span>
+          </button>
+          <h2 className="sheet_title">
+            Next 5 Days · {city?.name}{city?.country ? `, ${city?.country}` : ""}
+          </h2>
+        </header>
 
-      <div className="days_cards_list">
-        {daysList.map((day) => {
-          const isOpen = selectedDateKey === day.dateKey;
+        <div className="days_cards_list">
+          {daysList.map((day) => {
+            const isOpen = selectedDateKey === day.dateKey;
 
-          return (
-            <div key={day.dateKey} className="day_item_wrapper">
-              <div
-                className={`card_container bg-white ${isOpen ? "active" : ""}`}
-                onClick={() => handleToggleDay(day.dateKey)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    handleToggleDay(day.dateKey);
-                  }
-                }}
-              >
-                <div className="day_meta">
-                  <h2>{day.dayLabel}</h2>
-                  <p className="text-secondary">{day.formattedDate}</p>
-                </div>
-
-                <div className="card_img day_weather_info">
-                  <div className="temp_summary">
-                    <span className="card_main_temp">{day.currentTemp}°</span>
-                    <span className="temp_sub">
-                      L: {day.minTemp}° · H: {day.maxTemp}°
-                    </span>
+            return (
+              <div key={day.dateKey} className="day_item_wrapper">
+                <div
+                  className={`glass_card day_item_card ${isOpen ? "active_card" : ""}`}
+                  onClick={() => handleToggleDay(day.dateKey)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      handleToggleDay(day.dateKey);
+                    }
+                  }}
+                >
+                  <div className="day_meta">
+                    <h3 className="day_title">{day.dayLabel}</h3>
+                    <p className="day_subdate">{day.formattedDate}</p>
                   </div>
 
-                  {day.weather?.icon && (
-                    <img
-                      src={`https://openweathermap.org/img/wn/${day.weather.icon}@4x.png`}
-                      width={44}
-                      height={44}
-                      alt={day.weather.description || "weather condition"}
-                      className="weather_symbol"
-                    />
-                  )}
+                  <div className="day_weather_info">
+                    <div className="glass_pill day_temp_pill">
+                      <span className="pill_main_temp">{day.currentTemp}°</span>
+                      <span className="pill_range_temp">
+                        {day.minTemp}° / {day.maxTemp}°
+                      </span>
+                    </div>
 
-                  <svg
-                    className={`expand_chevron ${isOpen ? "open" : ""}`}
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
+                    {day.weather?.icon && (
+                      <img
+                        src={`https://openweathermap.org/img/wn/${day.weather.icon}@2x.png`}
+                        width={36}
+                        height={36}
+                        alt={day.weather.description || "weather"}
+                        className="weather_symbol"
+                      />
+                    )}
+
+                    <svg
+                      className={`expand_chevron ${isOpen ? "open" : ""}`}
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
 
-              {isOpen && (
-                <Chart
-                  data={day.chartData}
-                  minTemp={day.minTemp}
-                  maxTemp={day.maxTemp}
-                />
-              )}
-            </div>
-          );
-        })}
+                {isOpen && (
+                  <Chart
+                    data={day.chartData}
+                    minTemp={day.minTemp}
+                    maxTemp={day.maxTemp}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

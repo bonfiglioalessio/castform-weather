@@ -6,10 +6,193 @@
 @use 'nextdays'
 
 .text-secondary
-    color: var(--secondary)
+  color: var(--secondary)
 
 .text-bold
-    font-weight: 500
+  font-weight: 600
 
 .bg-white
-    background-color: var(--white)
+  background-color: var(--glass-bg)
+
+.main_weather_stage
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  margin: 1.25rem 0 1.75rem 0
+  gap: 0.35rem
+
+.content_stack
+  display: flex
+  flex-direction: column
+  gap: 1rem
+
+@media (max-width: 899px)
+  .dashboard_left_col,
+  .dashboard_right_col
+    display: contents
+
+  .layout_section_hero
+    order: 1
+
+  .layout_section_hourly
+    order: 2
+
+  .layout_section_daily
+    order: 3
+
+  .layout_section_bento
+    order: 4
+
+@media (min-width: 900px)
+  .content_stack
+    display: grid
+    grid-template-columns: 380px 1fr
+    gap: 1.25rem
+    align-items: stretch
+
+  .dashboard_left_col
+    display: flex
+    flex-direction: column
+    gap: 1.25rem
+    height: 100%
+
+  .dashboard_right_col
+    display: flex
+    flex-direction: column
+    gap: 1.25rem
+
+  .layout_section_daily
+    flex: 1
+    display: flex
+    flex-direction: column
+
+    & .daily_forecast_section
+      flex: 1
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+
+.glass_error_banner
+  background: rgba(239, 68, 68, 0.2)
+  border: 1px solid rgba(239, 68, 68, 0.4)
+  border-radius: var(--glass-pill)
+  padding: 0.5rem 1rem
+  color: #fecaca
+  font-size: 0.82rem
+  text-align: center
+  margin: 0.5rem auto 1rem auto
+  max-width: 480px
+  backdrop-filter: blur(16px)
+  -webkit-backdrop-filter: blur(16px)
+  animation: fadeIn 0.2s ease-out
+
+/* WELCOME EMPTY STATE (visionOS Glasses Style) */
+.empty_glass_stage
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 60vh
+  padding: 1rem 0
+
+.empty_welcome_card
+  max-width: 480px
+  width: 100%
+  padding: 2.5rem 2rem
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  gap: 1.25rem
+  border-radius: 2rem
+
+  & h2
+    font-size: 1.65rem
+    font-weight: 600
+    color: #ffffff
+    letter-spacing: -0.02em
+
+  & p
+    font-size: 0.92rem
+    color: rgba(255, 255, 255, 0.72)
+    line-height: 1.6
+
+.welcome_glow_badge
+  width: 72px
+  height: 72px
+  border-radius: 1.25rem
+  background: rgba(56, 189, 248, 0.18)
+  border: 1px solid rgba(56, 189, 248, 0.4)
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.5)
+  display: flex
+  align-items: center
+  justify-content: center
+  color: #38bdf8
+  animation: floatOrb 8s ease-in-out infinite alternate
+
+.glass_cta_button
+  display: inline-flex
+  align-items: center
+  gap: 0.65rem
+  padding: 0.75rem 1.6rem
+  background: rgba(255, 255, 255, 0.2)
+  border: 1px solid rgba(255, 255, 255, 0.4)
+  border-radius: var(--glass-pill)
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.6), 0 8px 24px rgba(0, 0, 0, 0.2)
+  color: #ffffff
+  font-size: 0.95rem
+  font-weight: 600
+  cursor: pointer
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1)
+
+  &:hover
+    background: rgba(255, 255, 255, 0.3)
+    border-color: rgba(255, 255, 255, 0.7)
+    transform: translateY(-2px)
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 12px 30px rgba(0, 0, 0, 0.3)
+
+  &:active
+    transform: translateY(0) scale(0.98)
+
+.quick_cities_group
+  display: flex
+  flex-direction: column
+  gap: 0.6rem
+  margin-top: 0.75rem
+  width: 100%
+
+.quick_label
+  font-size: 0.75rem
+  text-transform: uppercase
+  letter-spacing: 0.06em
+  color: rgba(255, 255, 255, 0.5)
+  font-weight: 600
+
+.quick_tags
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5rem
+  justify-content: center
+
+.glass_quick_tag
+  padding: 0.35rem 0.85rem
+  background: rgba(255, 255, 255, 0.1)
+  border: 1px solid rgba(255, 255, 255, 0.2)
+  border-radius: var(--glass-pill)
+  color: rgba(255, 255, 255, 0.85)
+  font-size: 0.82rem
+  font-weight: 500
+  cursor: pointer
+  transition: all 0.18s ease
+
+  &:hover
+    background: rgba(255, 255, 255, 0.2)
+    border-color: rgba(255, 255, 255, 0.45)
+    color: #ffffff
+    transform: translateY(-1px)
+
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1

@@ -1,29 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap")
 
 :root
-  --title: #313341
-  --secondary: #9a938c
-  --text: #303345
-  --light: #f4f4f4
-  --color: #9a938c
-  --white: #fcfcfc
+  --font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Display", "SF Pro Text", sans-serif
+
+  /* Colors */
+  --title: #ffffff
+  --text: #ffffff
+  --secondary: rgba(255, 255, 255, 0.7)
+  --tertiary: rgba(255, 255, 255, 0.45)
+  --white: #ffffff
+  --accent-cyan: #38bdf8
+  --accent-amber: #fbbf24
+  --accent-blue: #0ea5e9
+
+  /* visionOS 27 Glass Material Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.08)
+  --glass-bg-elevated: rgba(255, 255, 255, 0.12)
+  --glass-bg-hover: rgba(255, 255, 255, 0.15)
+  --glass-border: rgba(255, 255, 255, 0.18)
+  --glass-border-light: rgba(255, 255, 255, 0.3)
+  --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)
+  --glass-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35)
+  --glass-blur: blur(32px) saturate(190%)
+  --glass-radius: 1.4rem
+  --glass-pill: 9999px
 
 /* RESET */
 *,
 *::before,
 *::after
   box-sizing: border-box
-
-*
   margin: 0
+  padding: 0
 
 html,
 body
   height: 100%
-
-body
-  line-height: 1.5
+  width: 100%
+  background: #090e17
+  color: var(--text)
+  font-family: var(--font-family)
+  font-weight: 400
+  line-height: 1.4
   -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  overflow-x: hidden
 
 img,
 picture,
@@ -38,6 +59,7 @@ button,
 textarea,
 select
   font: inherit
+  color: inherit
 
 p,
 h1,
@@ -48,41 +70,127 @@ h5,
 h6
   overflow-wrap: break-word
 
-/* CUSTOM */
-body
-  font-family: "Inter", sans-serif
-  font-weight: 400
-  background: var(--white)
-  // @include radial-gradient(circle, center, rgba(254, 227, 188, 1) 35%, rgba(243, 151, 118, 0.272) 100%)
-
-h1
-  font-size: 2.3rem
-  font-weight: 500
-
-h2
-  font-size: 1rem
-  font-weight: 400
-
-p,
-span
-  font-size: 0.9rem
-
 a
   text-decoration: none
   color: inherit
 
-.container
-  max-width: 1000px
+/* CONTAINER RESPONSIVE (MOBILE & DESKTOP DASHBOARD) */
+.app_main_container
+  max-width: 480px
   margin: 0 auto
-  padding: 0.5rem 1rem
+  padding: 0.85rem 0.85rem 3rem 0.85rem
+  position: relative
+  z-index: 2
+  transition: max-width 0.25s ease
 
-.glassed
-  background-color: rgba(255, 255, 255, 0.18)
-  backdrop-filter: blur(10px)
-  -webkit-backdrop-filter: blur(10px)
-  border-radius: 10px
-  border: 1px solid rgba(255, 255, 255, 0.183)
-  box-shadow: 0 5px 10px 0 rgba(31, 38, 135, 0.211)
-  border-top-left-radius: 0
-  border-top-right-radius: 0
+@media (min-width: 900px)
+  .app_main_container
+    max-width: 1040px
+    padding: 1.5rem 1.5rem 4rem 1.5rem
 
+@media (min-width: 1200px)
+  .app_main_container
+    max-width: 1120px
+
+/* ATMOSPHERIC BACKGROUND CANVAS */
+.app_viewport
+  position: relative
+  min-height: 100vh
+  width: 100%
+  overflow-x: hidden
+  transition: background 1.2s cubic-bezier(0.16, 1, 0.3, 1)
+
+/* THEMES WITH RICH ATMOSPHERIC DEPTH */
+.theme-clear
+  background: radial-gradient(circle at 50% 15%, #0284c7 0%, #0369a1 40%, #0a101d 100%)
+
+.theme-clouds
+  background: radial-gradient(circle at 50% 15%, #334155 0%, #1e293b 45%, #080d16 100%)
+
+.theme-rain,
+.theme-drizzle
+  background: radial-gradient(circle at 50% 15%, #1e293b 0%, #0c4a6e 40%, #060b13 100%)
+
+.theme-thunderstorm
+  background: radial-gradient(circle at 50% 15%, #2e1065 0%, #0f172a 50%, #05070c 100%)
+
+.theme-snow
+  background: radial-gradient(circle at 50% 15%, #0369a1 0%, #1e293b 45%, #090e18 100%)
+
+.theme-mist,
+.theme-fog
+  background: radial-gradient(circle at 50% 15%, #475569 0%, #1e293b 50%, #080d16 100%)
+
+.theme-night
+  background: radial-gradient(circle at 50% 15%, #111827 0%, #0a0e1a 50%, #030508 100%)
+
+/* FLOATING AMBIENT LIGHT ORBS */
+.ambient_canvas
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  pointer-events: none
+  overflow: hidden
+  z-index: 1
+
+.ambient_orb
+  position: absolute
+  border-radius: 50%
+  filter: blur(80px)
+  opacity: 0.6
+  animation: floatOrb 22s ease-in-out infinite alternate
+
+.orb_1
+  width: 380px
+  height: 380px
+  top: -40px
+  left: -40px
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.75) 0%, rgba(14, 165, 233, 0) 70%)
+  animation-duration: 20s
+
+.orb_2
+  width: 440px
+  height: 440px
+  bottom: 8%
+  right: -60px
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, rgba(56, 189, 248, 0) 70%)
+  animation-duration: 24s
+  animation-delay: -6s
+
+.orb_3
+  width: 280px
+  height: 280px
+  top: 38%
+  left: 20%
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(245, 158, 11, 0) 70%)
+  animation-duration: 22s
+  animation-delay: -10s
+
+@keyframes floatOrb
+  0%
+    transform: translate(0, 0) scale(1)
+  50%
+    transform: translate(35px, 45px) scale(1.08)
+  100%
+    transform: translate(-25px, 25px) scale(0.95)
+
+/* GLASS CARD CLASS */
+.glass_card
+  background: var(--glass-bg)
+  border: 1px solid var(--glass-border)
+  border-top: 1px solid var(--glass-border-light)
+  border-radius: var(--glass-radius)
+  box-shadow: var(--glass-shadow), var(--glass-specular)
+  backdrop-filter: var(--glass-blur)
+  -webkit-backdrop-filter: var(--glass-blur)
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease
+
+.glass_pill
+  background: rgba(255, 255, 255, 0.1)
+  border: 1px solid rgba(255, 255, 255, 0.2)
+  border-radius: var(--glass-pill)
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3)
+  backdrop-filter: blur(20px)
+  -webkit-backdrop-filter: blur(20px)

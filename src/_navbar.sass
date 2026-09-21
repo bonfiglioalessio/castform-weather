@@ -1,75 +1,145 @@
-header
-  padding: 1rem 0
+.navbar_header
+  position: relative
+  z-index: 50
+  margin-bottom: 1rem
+  width: 100%
+  display: flex
+  justify-content: center
 
-nav
+.search_capsule_bar
+  position: relative
+  width: 100%
+  max-width: 460px
+
+
+.search_input_box
   display: flex
   align-items: center
-  justify-content: space-between
-  position: relative
-  z-index: 2
+  gap: 0.6rem
+  width: 100%
+  height: 42px
+  background: rgba(255, 255, 255, 0.1)
+  backdrop-filter: blur(28px) saturate(190%)
+  -webkit-backdrop-filter: blur(28px) saturate(190%)
+  border: 1px solid rgba(255, 255, 255, 0.22)
+  border-radius: 9999px
+  padding: 0 0.85rem 0 1rem
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.18)
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1)
 
-.box_icon
+  &:focus-within
+    background: rgba(255, 255, 255, 0.16)
+    border-color: rgba(255, 255, 255, 0.5)
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 0 0 3px rgba(56, 189, 248, 0.35)
+
+  & input
+    flex: 1
+    background: transparent
+    border: none
+    color: #ffffff
+    font-size: 0.88rem
+    font-weight: 400
+
+    &::placeholder
+      color: rgba(255, 255, 255, 0.55)
+
+    &:focus-visible
+      outline: none
+
+.search_lens_icon
+  color: rgba(255, 255, 255, 0.7)
+  cursor: pointer
+  flex-shrink: 0
+
+.search_action_btn
+  background: rgba(255, 255, 255, 0.2)
+  border: none
+  border-radius: 50%
+  width: 20px
+  height: 20px
   display: flex
   align-items: center
   justify-content: center
-  width: 24px
-  height: 24px
+  color: #ffffff
   cursor: pointer
-  & img
-    width: 100%
+  flex-shrink: 0
 
-.input
+.gps_locate_btn
+  background: rgba(255, 255, 255, 0.14)
+  border: 1px solid rgba(255, 255, 255, 0.2)
+  border-radius: 50%
+  width: 26px
+  height: 26px
   display: flex
   align-items: center
-  gap: 0.5rem
-  position: relative
-  background: var(--light)
-  border: 1px solid var(--light)
-  border-radius: 0.5rem
-  & input
-    background: inherit
-    border: inherit
-    border-radius: 0.5rem
-    padding: 0.5rem
-    backdrop-filter: blur(10px)
-    width: 91%
-    -webkit-backdrop-filter: blur(10px)
-  & img
-    width: 22px
-    position: absolute
-    right: 0.5rem
-    cursor: pointer
+  justify-content: center
+  color: #38bdf8
+  cursor: pointer
+  transition: all 0.2s ease
+  flex-shrink: 0
 
-.hidden 
-  display: none
+  &:hover
+    background: rgba(56, 189, 248, 0.25)
+    border-color: #38bdf8
+    transform: scale(1.06)
 
-.open
-  width: 100%
+.glass_search_dropdown
+  position: absolute
+  top: calc(100% + 6px)
+  left: 0
+  right: 0
+  background: rgba(12, 17, 30, 0.88)
+  border: 1px solid rgba(255, 255, 255, 0.2)
+  border-radius: 1.25rem
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)
+  backdrop-filter: blur(36px) saturate(190%)
+  -webkit-backdrop-filter: blur(36px) saturate(190%)
+  overflow: hidden
+  z-index: 60
+  animation: dropdownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1)
 
-.closed
-  width: 80%
-
-input:focus-visible
-  outline: none
-
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration
-  -webkit-appearance: none
-
-ul.list
+.search_results_list
   list-style: none
-  padding: 0
-  margin: 0
-  width: 100vw
+  padding: 0.35rem
+  max-height: 260px
+  overflow-y: auto
+
+.search_result_item
+  display: flex
+  align-items: center
+  gap: 0.65rem
+  padding: 0.65rem 0.85rem
+  border-radius: 0.85rem
+  cursor: pointer
+  transition: background 0.15s ease, transform 0.15s ease
+
+  &:hover
+    background: rgba(255, 255, 255, 0.12)
+    transform: translateX(2px)
+
+.result_pin
+  color: #38bdf8
+  display: flex
+  align-items: center
+  justify-content: center
+
+.result_text
   display: flex
   flex-direction: column
-  position: fixed
-  top: 0
-  left: 0
-  z-index: 1
-  padding: 5rem 1rem 2rem 1rem
-  li
-    padding: 0.3rem 0
-    cursor: pointer
+
+.city_name
+  font-size: 0.9rem
+  font-weight: 500
+  color: #ffffff
+
+.city_sub
+  font-size: 0.75rem
+  color: rgba(255, 255, 255, 0.6)
+
+@keyframes dropdownFade
+  from
+    opacity: 0
+    transform: translateY(-6px) scale(0.98)
+  to
+    opacity: 1
+    transform: translateY(0) scale(1)

@@ -1,32 +1,74 @@
-.weather_container
-    display: flex
-    justify-content: space-between
-    color: var(--text)
-    margin: 1rem 0
-    flex-direction: row
+.weather_display_stage
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 0.5rem
+  margin-top: 0.25rem
 
-.weather_icon
-    min-width: 129px
-    min-height: 129px
+.weather_icon_orb
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 110px
+  height: 110px
 
-.text_container
-    width: 100%
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: end
+.weather_glow_img
+  width: 100%
+  height: 100%
+  object-fit: contain
+  filter: drop-shadow(0 8px 24px rgba(56, 189, 248, 0.35))
+  animation: floatIcon 6s ease-in-out infinite alternate
 
-    & h2
-        font-size: 4rem
-        font-weight: 700
-        line-height: 1
+.temp_degree_wrapper
+  display: inline-flex
+  align-items: flex-start
+  justify-content: center
+  margin: -0.5rem 0 -0.25rem 0
 
-.grade_container,
-.condition_container
-    display: flex
-    justify-content: flex-start
-    // width: 100px
+.big_temperature
+  font-size: 6.2rem
+  font-weight: 200
+  line-height: 0.95
+  letter-spacing: -0.05em
+  color: #ffffff
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2)
 
-    & h4
-        font-size: 1.5rem
-        font-weight: 400
+.degree_symbol
+  font-size: 3.5rem
+  font-weight: 200
+  color: rgba(255, 255, 255, 0.75)
+  margin-top: -0.2rem
+
+.weather_meta_capsules
+  display: flex
+  align-items: center
+  gap: 0.6rem
+  flex-wrap: wrap
+  justify-content: center
+  margin-top: 0.35rem
+
+.condition_pill
+  padding: 0.35rem 0.95rem
+  font-size: 0.85rem
+  font-weight: 500
+  color: #ffffff
+  text-transform: capitalize
+
+.range_pill
+  display: inline-flex
+  align-items: center
+  gap: 0.35rem
+  padding: 0.35rem 0.85rem
+  font-size: 0.82rem
+  font-weight: 500
+  color: rgba(255, 255, 255, 0.85)
+
+.pill_divider
+  color: rgba(255, 255, 255, 0.4)
+
+@keyframes floatIcon
+  0%
+    transform: translateY(0px)
+  100%
+    transform: translateY(-8px)

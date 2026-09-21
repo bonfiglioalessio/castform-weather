@@ -12,7 +12,7 @@ const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const item = payload[0].payload;
     return (
-      <div className="chart_custom_tooltip">
+      <div className="glass_chart_tooltip">
         <div className="tooltip_header">
           <span className="tooltip_time">{item.time}</span>
           {item.icon && (
@@ -21,18 +21,19 @@ const CustomTooltip = ({ active, payload }) => {
               alt={item.description || ""}
               width={24}
               height={24}
+              className="tooltip_icon"
             />
           )}
         </div>
         <div className="tooltip_body">
-          <span className="tooltip_temp">{Math.round(item.temp)}°C</span>
+          <span className="tooltip_temp">{Math.round(item.temp)}°</span>
           {item.description && (
             <span className="tooltip_desc">{item.description}</span>
           )}
         </div>
         {item.feels_like !== undefined && (
           <div className="tooltip_footer">
-            <span>Feels like: {Math.round(item.feels_like)}°C</span>
+            <span>Feels like {Math.round(item.feels_like)}°</span>
           </div>
         )}
       </div>
@@ -65,7 +66,7 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
 
   if (chartData.length === 0) {
     return (
-      <div className="chart_empty">
+      <div className="chart_empty_glass">
         <p>No hourly forecast data available</p>
       </div>
     );
@@ -78,16 +79,15 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
     maxTemp !== undefined ? maxTemp : Math.max(...temps);
 
   return (
-    <div className="chart_wrapper">
+    <div className="vision_chart_card">
       <div className="chart_header">
         <div className="chart_title_group">
-          <span className="chart_title">Hourly Forecast</span>
-          <span className="chart_subtitle">Temperature Trend</span>
+          <span className="chart_title">Hourly Temperature Trend</span>
         </div>
-        <div className="chart_range_badge">
-          <span>Low {Math.round(calculatedMin)}°</span>
+        <div className="glass_pill chart_range_badge">
+          <span className="temp_arrow_low">↓</span> {Math.round(calculatedMin)}°
           <span className="divider">·</span>
-          <span>High {Math.round(calculatedMax)}°</span>
+          <span className="temp_arrow_high">↑</span> {Math.round(calculatedMax)}°
         </div>
       </div>
 
@@ -98,21 +98,21 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
           onMouseMove={onMouseMove}
         >
           <defs>
-            <linearGradient id="chartTempGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#303345" stopOpacity={0.16} />
-              <stop offset="90%" stopColor="#303345" stopOpacity={0.01} />
+            <linearGradient id="visionChartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.45} />
+              <stop offset="90%" stopColor="#38bdf8" stopOpacity={0.0} />
             </linearGradient>
           </defs>
           <CartesianGrid
             strokeDasharray="4 4"
             vertical={false}
-            stroke="#eef0f3"
+            stroke="rgba(255, 255, 255, 0.08)"
           />
           <XAxis
             dataKey="time"
             tickLine={false}
-            axisLine={{ stroke: "#e6e8eb" }}
-            tick={{ fill: "#9a938c", fontSize: 11, fontWeight: 500 }}
+            axisLine={{ stroke: "rgba(255, 255, 255, 0.12)" }}
+            tick={{ fill: "rgba(255, 255, 255, 0.72)", fontSize: 11, fontWeight: 500 }}
             dy={5}
           />
           <YAxis
@@ -121,7 +121,7 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
             orientation="right"
             tickLine={false}
             axisLine={false}
-            tick={{ fill: "#9a938c", fontSize: 11, fontWeight: 500 }}
+            tick={{ fill: "rgba(255, 255, 255, 0.72)", fontSize: 11, fontWeight: 500 }}
             tickFormatter={(v) => `${Math.round(v)}°`}
             width={32}
           />
@@ -129,15 +129,15 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
           <Area
             type="monotone"
             dataKey="temp"
-            stroke="#303345"
+            stroke="#38bdf8"
             strokeWidth={2.5}
             fillOpacity={1}
-            fill="url(#chartTempGrad)"
-            dot={{ r: 3.5, fill: "#ffffff", strokeWidth: 2, stroke: "#303345" }}
+            fill="url(#visionChartGrad)"
+            dot={{ r: 3.5, fill: "#38bdf8", strokeWidth: 1.5, stroke: "#ffffff" }}
             activeDot={{
               r: 5.5,
-              fill: "#303345",
-              stroke: "#ffffff",
+              fill: "#ffffff",
+              stroke: "#38bdf8",
               strokeWidth: 2.5,
             }}
           />

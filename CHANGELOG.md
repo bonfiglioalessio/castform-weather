@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Centralized `weatherApi` service with secure API key access via `.env.local` and `.env.example` template.
 - Debounced city autocomplete search (350ms) to protect free-tier API rate limits.
 - Network and geolocation error feedback in `App` component.
+- Complete redesign to **iOS 27 Glasses / visionOS** design system:
+  - Atmospheric dynamic backgrounds with floating ambient light orbs reacting to weather conditions.
+  - Frosted glass cards (`backdrop-filter: blur(32px) saturate(190%)`) with specular highlight edges and squircle borders.
+  - Integrated **Hero Glass Card** with city, live date, feels-like indicator, and low/high arrow indicators (`↓` cyan / `↑` amber).
+  - Balanced 2-column desktop dashboard layout with equalized column heights and responsive centered search capsule.
+  - Native Apple Weather 7-day (1-week) forecast with continuous proportional temperature gradient bars and live indicator dot.
+  - Hourly forecast rail with segmented toggle for 24-hour interactive luminous curve chart.
+  - Frosted visionOS interactive chart tooltip with blur backdrop, clear typography, and formatted weather descriptions.
+  - Bento Grid (2x2) with rotating SVG wind compass, radial humidity gauge, solar arc tracker (sunrise/sunset), and visibility/pressure clarity meters.
+  - Fixed weekday labeling in forecast to show standard weekday abbreviations instead of informal names.
 
 ### Fixed
 - Chronological time order, dynamic temperature scaling, and gradient presentation in forecast chart.

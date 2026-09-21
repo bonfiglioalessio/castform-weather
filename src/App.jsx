@@ -1,12 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import "./App.sass";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Weather from "./components/Weather";
-import Card from "./components/Card";
 import Forecast from "./components/Forecast";
-import getDate from "./helpers/getDate";
-import Next5days from "./components/Next5days";
+import DailyForecast from "./components/DailyForecast";
+import Card from "./components/Card";
 import {
   getCurrentWeather,
   getForecast,
@@ -18,11 +16,12 @@ function App() {
   const [input, setInput] = useState("");
   const [city, setCity] = useState("");
   const [forecast, setForecast] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCityDetails = useCallback(async ({ lat, lon }) => {
     try {
+      setIsLoading(true);
       setError(null);
       const [currentData, forecastData] = await Promise.all([
         getCurrentWeather(lat, lon),
@@ -33,6 +32,8 @@ function App() {
     } catch (err) {
       console.error("Error fetching weather details:", err);
       setError(err.message || "Failed to load weather data");
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -96,66 +97,166 @@ function App() {
     fetchCityDetails({ lat, lon });
   };
 
+  // Determine dynamic visionOS atmospheric theme
+  const weatherTheme = useMemo(() => {
+    if (!city) return "theme-clear";
+    const icon = city?.weather?.[0]?.icon || "";
+    const condition = (city?.weather?.[0]?.main || "").toLowerCase();
+
+    if (icon.includes("n")) return "theme-night";
+    if (condition.includes("rain") || condition.includes("drizzle")) return "theme-rain";
+    if (condition.includes("thunderstorm")) return "theme-thunderstorm";
+    if (condition.includes("snow")) return "theme-snow";
+    if (condition.includes("cloud")) return "theme-clouds";
+    if (condition.includes("mist") || condition.includes("fog")) return "theme-mist";
+    return "theme-clear";
+  }, [city]);
+
+  // Compute today's High and Low from the forecast
+  const todayRange = useMemo(() => {
+    if (!forecast?.list || forecast.list.length === 0) {
+      return {
+        high: city?.main?.temp_max ? Math.round(city.main.temp_max) : null,
+        low: city?.main?.temp_min ? Math.round(city.main.temp_min) : null,
+      };
+    }
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const todayItems = forecast.list.filter((i) => i.dt_txt?.startsWith(todayStr));
+    const itemsToScan = todayItems.length > 0 ? todayItems : forecast.list.slice(0, 8);
+    const temps = itemsToScan.map((i) => i.main.temp);
+    return {
+      high: Math.round(Math.max(...temps, city?.main?.temp ?? 0)),
+      low: Math.round(Math.min(...temps, city?.main?.temp ?? 0)),
+    };
+  }, [forecast, city]);
+
   return (
-    <div className="container">
-      <Navbar
-        onClick={handleClick}
-        filteredArr={data}
-        value={input}
-        onChange={handleChange}
-      />
+    <div className={`app_viewport ${weatherTheme}`}>
+      <div className="ambient_canvas" aria-hidden="true">
+        <div className="ambient_orb orb_1" />
+        <div className="ambient_orb orb_2" />
+        <div className="ambient_orb orb_3" />
+      </div>
 
-      {error && (
-        <div style={{ color: "#ef4444", fontSize: "0.85rem", margin: "0.5rem 0", textAlign: "center" }}>
-          {error}
-        </div>
-      )}
+      <div className="container app_main_container">
+        <Navbar
+          onClick={handleClick}
+          onLocate={getLocation}
+          filteredArr={data}
+          value={input}
+          onChange={handleChange}
+        />
 
-      {city !== "" ? (
-        <>
-          <Hero city={city.name} country={city.sys?.country} date={getDate()} />
+        {error && (
+          <div className="glass_error_banner">
+            <span>{error}</span>
+          </div>
+        )}
 
-          <Weather
-            temperature={city.main?.temp}
-            img={city?.weather?.[0]?.icon}
-            weather_descriptions={city.weather?.[0]?.main}
-            description={city.weather?.[0]?.description}
-          />
+        {city !== "" ? (
+          <main className="content_stack">
+            <div className="dashboard_left_col">
+              {/* 1. Compact Apple Weather Hero Glass Card */}
+              <div className="layout_section_hero">
+                <Hero
+                  city={city.name}
+                  country={city.sys?.country}
+                  temperature={Math.round(city.main?.temp)}
+                  description={city.weather?.[0]?.description}
+                  high={todayRange.high}
+                  low={todayRange.low}
+                  img={city?.weather?.[0]?.icon}
+                  feels_like={city?.main?.feels_like ? Math.round(city.main.feels_like) : null}
+                />
+              </div>
 
-          <Card
-            visibility={city?.visibility ? city.visibility / 1000 : 0}
-            wind_speed={city?.wind?.speed}
-            humidity={city?.main?.humidity}
-          />
+              {/* 2. Embedded 7-Day (1-Week) Forecast Card with Apple Range Bars */}
+              <div className="layout_section_daily">
+                <DailyForecast
+                  data={forecast?.list}
+                  currentTemp={Math.round(city.main?.temp)}
+                />
+              </div>
+            </div>
 
-          <Forecast
-            next5Days={() => setIsVisible(!isVisible)}
-            data={forecast?.list}
-          />
+            <div className="dashboard_right_col">
+              {/* 3. Hourly Forecast with Tabs (Rail & Trend Chart) */}
+              <div className="layout_section_hourly">
+                <Forecast data={forecast?.list} />
+              </div>
 
-          {isVisible && (
-            <Next5days
-              data={forecast}
-              city={city.name}
-              country={city.sys?.country}
-              clickBack={() => setIsVisible(!isVisible)}
-            />
-          )}
-        </>
-      ) : (
-        <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <p>Type the city in input</p>
-          <p style={{ marginTop: "0.5rem" }}>
-            <a
-              href="#location"
-              onClick={getLocation}
-              style={{ color: "#38bdf8", textDecoration: "underline", cursor: "pointer" }}
-            >
-              or click here to use your location!
-            </a>
-          </p>
-        </div>
-      )}
+              {/* 4. Compact Bento Grid (Wind Compass, Humidity Ring, Sun Arc, Visibility) */}
+              <div className="layout_section_bento">
+                <Card
+                  wind_speed={Math.round((city?.wind?.speed || 0) * 3.6)}
+                  wind_deg={city?.wind?.deg || 0}
+                  humidity={city?.main?.humidity}
+                  visibility={city?.visibility ? Math.round(city.visibility / 100) / 10 : 0}
+                  feels_like={city?.main?.feels_like ? Math.round(city.main.feels_like) : null}
+                  pressure={city?.main?.pressure}
+                  sunrise={city?.sys?.sunrise}
+                  sunset={city?.sys?.sunset}
+                  temp={Math.round(city.main?.temp)}
+                />
+              </div>
+            </div>
+          </main>
+        ) : (
+          <div className="empty_glass_stage">
+            <div className="glass_card empty_welcome_card">
+              <div className="welcome_glow_badge">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+              </div>
+              <h2>Weather Intelligence</h2>
+              <p>Explore hyper-local weather, interactive temperature curves, and 5-day forecasts in ultra-modern visionOS glass style.</p>
+
+              <button
+                type="button"
+                className="glass_cta_button"
+                onClick={getLocation}
+                disabled={isLoading}
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                </svg>
+                <span>{isLoading ? "Locating..." : "Use Current Location"}</span>
+              </button>
+
+              <div className="quick_cities_group">
+                <span className="quick_label">Quick Cities</span>
+                <div className="quick_tags">
+                  {[
+                    { name: "Milan", lat: 45.4642, lon: 9.19 },
+                    { name: "Rome", lat: 41.9028, lon: 12.4964 },
+                    { name: "London", lat: 51.5074, lon: -0.1278 },
+                    { name: "New York", lat: 40.7128, lon: -74.006 },
+                    { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+                  ].map((c) => (
+                    <button
+                      key={c.name}
+                      type="button"
+                      className="glass_quick_tag"
+                      onClick={() => fetchCityDetails({ lat: c.lat, lon: c.lon })}
+                    >
+                      {c.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

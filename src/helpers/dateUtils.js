@@ -27,7 +27,7 @@ export const getDateKey = (dt_txt, dt) => {
   return "";
 };
 
-export const formatDayLabel = (dateKey) => {
+export const formatDayLabel = (dateKey, isShort = false) => {
   if (!dateKey) return "";
   const [year, month, day] = dateKey.split("-").map(Number);
   const target = new Date(year, month - 1, day);
@@ -37,30 +37,69 @@ export const formatDayLabel = (dateKey) => {
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
 
-  const weekday = target.toLocaleDateString("en-US", { weekday: "long" });
-
   if (target.getTime() === today.getTime()) {
-    return `${weekday} - Today`;
+    return "Today";
   }
-  if (target.getTime() === tomorrow.getTime()) {
-    return `${weekday} - Tomorrow`;
-  }
-  return weekday;
+  return target.toLocaleDateString("en-US", { weekday: isShort ? "short" : "long" });
 };
 
 export const formatMonthDay = (dateKey) => {
   if (!dateKey) return "";
   const [year, month, day] = dateKey.split("-").map(Number);
   const target = new Date(year, month - 1, day);
-  const monthName = target.toLocaleDateString("en-US", { month: "long" });
+  const monthName = target.toLocaleDateString("en-US", { month: "short" });
   const dayNum = target.getDate();
+  return `${monthName} ${dayNum}`;
+};
 
-  const j = dayNum % 10;
-  const k = dayNum % 100;
-  let suffix = "th";
-  if (j === 1 && k !== 11) suffix = "st";
-  else if (j === 2 && k !== 12) suffix = "nd";
-  else if (j === 3 && k !== 13) suffix = "rd";
+/**
+ * Convert wind angle (degrees 0-360) to cardinal direction
+ */
+export const degToCompass = (deg) => {
+  if (deg === undefined || deg === null) return "N";
+  const val = Math.floor((deg / 22.5) + 0.5);
+  const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+  return arr[val % 16] || "N";
+};
 
-  return `${monthName} ${dayNum}${suffix}`;
+/**
+ * Format unix timestamp to hour:minute (e.g. 07:15)
+ */
+export const formatUnixTime = (timestamp) => {
+  if (!timestamp) return "--:--";
+  const date = new Date(timestamp * 1000);
+  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+};
+
+/**
+ * Get sunset/sunrise countdown description
+ */
+export const getSunStatus = (sunrise, sunset) => {
+  const now = Math.floor(Date.now() / 1000);
+  if (!sunrise || !sunset) return { label: "Sun status", detail: "Standard cycle", percent: 50 };
+
+  if (now >= sunrise && now < sunset) {
+    const remainingSec = sunset - now;
+    const hours = Math.floor(remainingSec / 3600);
+    const mins = Math.floor((remainingSec % 3600) / 60);
+    const totalDaylight = sunset - sunrise;
+    const elapsed = now - sunrise;
+    const percent = Math.min(100, Math.max(0, Math.round((elapsed / totalDaylight) * 100)));
+
+    return {
+      label: "Sunset in",
+      detail: `${hours}h ${mins}m`,
+      subtext: `Sunset at ${formatUnixTime(sunset)}`,
+      percent,
+      isDay: true,
+    };
+  } else {
+    return {
+      label: "Sunrise at",
+      detail: formatUnixTime(sunrise),
+      subtext: `Sunset was at ${formatUnixTime(sunset)}`,
+      percent: 0,
+      isDay: false,
+    };
+  }
 };
