@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Standardized project package name and branding to **Castform Weather** (`castform-weather`).
 
+### Security
+- Removed hardcoded fallback OpenWeather API key from `weatherApi.js` to strictly enforce environment variables (`VITE_OPENWEATHER_API_KEY`).
+
 ## [1.0.0] - 2026-09-21
 
 ### Added
