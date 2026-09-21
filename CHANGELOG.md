@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Comprehensive and professional `README.md` with features overview, Castform companion mechanics, tech stack, architecture layout, and setup guides.
 - Project governance and guidelines (`AGENTS.md`, `GEMINI.md`).
 - Branching workflow and conventional commit standards.
 - Centralized `weatherApi` service with secure API key access via `.env.local` and `.env.example` template.
