@@ -1,20 +1,14 @@
 import { useRef } from "react";
-import clsx from "clsx";
 import searchIcon from "/images/search.svg";
-import menuIcon from "/images/menu.svg";
 
 const Navbar = (props) => {
   const { onChange, onClick, value, filteredArr } = props;
   const inputRef = useRef();
 
-  // const handleClick = () => {
-  //   console.log("clicked menu");
-  // };
-
   return (
     <header>
       <nav>
-        <div className={clsx("input", value !== "" ? "open" : "open")}>
+        <div className="input open">
           <input
             type="search"
             name="geo"
@@ -27,18 +21,15 @@ const Navbar = (props) => {
           <img
             src={searchIcon}
             alt="search the city"
-            onClick={() => inputRef.current.focus()}
+            onClick={() => inputRef.current?.focus()}
           />
-        </div>
-        <div className={clsx("box_icon", value !== "" ? "hidden" : "hidden")}>
-          <img src={menuIcon} alt="" onClick={() => handleClick()} />
         </div>
       </nav>
 
-      <ul className={clsx("list", value !== "" ? "glassed" : "")}>
-        {filteredArr?.map(({ country, state, name, lat, lon }) => {
+      <ul className={`list ${value ? "glassed" : ""}`.trim()}>
+        {filteredArr?.map(({ country, state, name, lat, lon }, index) => {
           return (
-            <li key={Math.random()} onClick={() => onClick({ lat, lon })}>
+            <li key={`${name}-${lat}-${lon}-${index}`} onClick={() => onClick({ lat, lon })}>
               {name}, {state}, {country}
             </li>
           );

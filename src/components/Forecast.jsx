@@ -1,9 +1,10 @@
 import arrow from "../assets/arrow.svg";
-import moment from "moment";
+import { formatTime } from "../helpers/dateUtils";
 
 const Forecast = (props) => {
   const { data, next5Days } = props;
-  let slicedData = data?.slice(0, 12);
+  const slicedData = data?.slice(0, 12);
+
   return (
     <section>
       <div className="details_container">
@@ -19,10 +20,10 @@ const Forecast = (props) => {
       </div>
 
       <div className="forecast_container">
-        {slicedData?.map((props, index) => {
-          const { dt_txt, main, weather } = props;
+        {slicedData?.map((item, index) => {
+          const { dt_txt, dt, main, weather } = item;
+          const time = formatTime(dt_txt, dt);
 
-          const time = moment(dt_txt).format("HH:mm");
           return (
             <button className="box" key={index}>
               <p>{time}</p>
@@ -30,9 +31,9 @@ const Forecast = (props) => {
                 src={`https://openweathermap.org/img/wn/${weather[0].icon}@4x.png`}
                 width={40}
                 height={40}
-                alt=""
+                alt={weather[0].description || ""}
               />
-              <p>{main.temp}°</p>
+              <p>{Math.round(main.temp)}°</p>
             </button>
           );
         })}
