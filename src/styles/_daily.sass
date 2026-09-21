@@ -1,0 +1,90 @@
+.daily_forecast_section
+  padding: 1rem 1.15rem 0.85rem 1.15rem
+  width: 100%
+
+.daily_header
+  display: flex
+  align-items: center
+  gap: 0.45rem
+  margin-bottom: 0.65rem
+  padding-bottom: 0.5rem
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+
+.calendar_icon
+  color: #38bdf8
+
+.daily_heading
+  font-size: 0.76rem
+  font-weight: 600
+  color: rgba(255, 255, 255, 0.7)
+  letter-spacing: 0.05em
+  text-transform: uppercase
+
+.daily_list
+  display: flex
+  flex-direction: column
+  flex: 1
+  justify-content: space-between
+
+.daily_row_item
+  display: grid
+  grid-template-columns: 48px 28px 32px 1fr 32px
+  align-items: center
+  gap: 0.5rem
+  padding: 0.65rem 0
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+
+  &:last-child
+    border-bottom: none
+
+.daily_day_name
+  font-size: 0.88rem
+  font-weight: 500
+  color: #ffffff
+
+.daily_icon_cell
+  display: flex
+  align-items: center
+  justify-content: center
+
+.daily_weather_icon
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+
+.daily_min_val
+  font-size: 0.85rem
+  font-weight: 500
+  color: rgba(255, 255, 255, 0.6)
+  text-align: right
+
+.daily_bar_track
+  position: relative
+  height: 4.5px
+  background: rgba(0, 0, 0, 0.25)
+  border-radius: 9999px
+  overflow: visible
+  margin: 0 0.25rem
+
+.daily_bar_fill
+  position: absolute
+  top: 0
+  height: 100%
+  border-radius: 9999px
+  background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 40%, #fbbf24 100%)
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4)
+
+.daily_current_dot
+  position: absolute
+  top: -3px
+  width: 10.5px
+  height: 10.5px
+  border-radius: 50%
+  background: #ffffff
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.4)
+  transform: translateX(-50%)
+  z-index: 2
+
+.daily_max_val
+  font-size: 0.88rem
+  font-weight: 600
+  color: #ffffff
+  text-align: left
