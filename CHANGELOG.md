@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Removed hardcoded fallback OpenWeather API key from `weatherApi.js` to strictly enforce environment variables (`VITE_OPENWEATHER_API_KEY`).
 
+### Fixed
+- Fixed Netlify deployment build failure by enforcing Node.js v20 LTS in `netlify.toml`, `.nvmrc`, and `package.json` engines to satisfy Recharts and Vite dependencies.
+
 ## [1.0.0] - 2026-09-21
 
 ### Added
