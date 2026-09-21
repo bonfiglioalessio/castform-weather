@@ -75,7 +75,7 @@ const Navbar = (props) => {
               {filteredArr.map(({ country, state, name, lat, lon }, index) => (
                 <li
                   key={`${name}-${lat}-${lon}-${index}`}
-                  onClick={() => onClick({ lat, lon })}
+                  onClick={() => onClick({ lat, lon, cityName: name, countryName: country })}
                   className="search_result_item"
                 >
                   <div className="result_pin">

@@ -12,6 +12,7 @@ import {
   getCurrentWeather,
   getForecast,
   searchCities,
+  reverseGeocode,
 } from "./services/weatherApi";
 
 function App() {
@@ -23,23 +24,51 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPokedexOpen, setIsPokedexOpen] = useState(false);
 
-  const fetchCityDetails = useCallback(async ({ lat, lon }) => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const [currentData, forecastData] = await Promise.all([
-        getCurrentWeather(lat, lon),
-        getForecast(lat, lon),
-      ]);
-      setCity(currentData);
-      setForecast(forecastData);
-    } catch (err) {
-      console.error("Error fetching weather details:", err);
-      setError(err.message || "Failed to load weather data");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const fetchCityDetails = useCallback(
+    async ({ lat, lon, cityName, countryName }) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const [currentData, forecastData] = await Promise.all([
+          getCurrentWeather(lat, lon),
+          getForecast(lat, lon),
+        ]);
+
+        let resolvedCityName = cityName;
+        let resolvedCountry = countryName;
+
+        if (!resolvedCityName) {
+          try {
+            const revResults = await reverseGeocode(lat, lon);
+            if (revResults && revResults.length > 0 && revResults[0].name) {
+              resolvedCityName = revResults[0].name;
+              if (revResults[0].country) {
+                resolvedCountry = revResults[0].country;
+              }
+            }
+          } catch (e) {
+            console.warn("Reverse geocode fallback error:", e);
+          }
+        }
+
+        if (resolvedCityName) {
+          currentData.name = resolvedCityName;
+        }
+        if (resolvedCountry && currentData.sys) {
+          currentData.sys.country = resolvedCountry;
+        }
+
+        setCity(currentData);
+        setForecast(forecastData);
+      } catch (err) {
+        console.error("Error fetching weather details:", err);
+        setError(err.message || "Failed to load weather data");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   const successCallback = useCallback(
     (pos) => {
@@ -97,8 +126,8 @@ function App() {
     setInput(val);
   };
 
-  const handleClick = ({ lat, lon }) => {
-    fetchCityDetails({ lat, lon });
+  const handleClick = ({ lat, lon, cityName, countryName }) => {
+    fetchCityDetails({ lat, lon, cityName, countryName });
   };
 
   // Determine dynamic visionOS atmospheric theme
@@ -252,17 +281,24 @@ function App() {
                 <span className="quick_label">Quick Cities</span>
                 <div className="quick_tags">
                   {[
-                    { name: "Milan", lat: 45.4642, lon: 9.19 },
-                    { name: "Rome", lat: 41.9028, lon: 12.4964 },
-                    { name: "London", lat: 51.5074, lon: -0.1278 },
-                    { name: "New York", lat: 40.7128, lon: -74.006 },
-                    { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+                    { name: "Milan", country: "IT", lat: 45.4642, lon: 9.19 },
+                    { name: "Rome", country: "IT", lat: 41.8933, lon: 12.4829 },
+                    { name: "London", country: "GB", lat: 51.5074, lon: -0.1278 },
+                    { name: "New York", country: "US", lat: 40.7128, lon: -74.006 },
+                    { name: "Tokyo", country: "JP", lat: 35.6828, lon: 139.7595 },
                   ].map((c) => (
                     <button
                       key={c.name}
                       type="button"
                       className="glass_quick_tag"
-                      onClick={() => fetchCityDetails({ lat: c.lat, lon: c.lon })}
+                      onClick={() =>
+                        fetchCityDetails({
+                          lat: c.lat,
+                          lon: c.lon,
+                          cityName: c.name,
+                          countryName: c.country,
+                        })
+                      }
                     >
                       {c.name}
                     </button>

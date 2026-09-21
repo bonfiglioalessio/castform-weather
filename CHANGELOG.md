@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Dedicated `[ 📖 Pokédex #351 ]` frosted glass pill trigger in the Hero footer.
 
 ### Fixed
+- Fixed city name resolution: prevented OpenWeather weather station micro-localities (e.g. "Trevi" for Rome, "Horinouchi" for Tokyo) from overriding real city names across search suggestions, quick cities, and geolocation reverse-geocoding.
 - Fixed hourly temperature trend chart header: flex-aligned title and constrained range badge (`.chart_range_badge`) to a compact inline pill on the right, eliminating full-width stretching and arrow edge clipping.
 - Replaced dark opaque modal backdrop with translucent frosted glass (`backdrop-filter: blur(28px) saturate(180%)`), allowing the live weather app underneath to stay clearly visible and blurred.
 - Fixed desktop Pokédex layout collision: moved 4-form switcher full-width above the two columns, preventing button text overflow and overlap with info cards.

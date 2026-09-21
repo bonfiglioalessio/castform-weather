@@ -52,3 +52,12 @@ export const searchCities = async (query, limit = 10) => {
   const response = await fetch(url);
   return handleResponse(response, "city suggestions");
 };
+
+/**
+ * Reverse geocoding to resolve coordinates to official city and country name.
+ */
+export const reverseGeocode = async (lat, lon, limit = 1) => {
+  const url = `${BASE_URL}/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${API_KEY}`;
+  const response = await fetch(url);
+  return handleResponse(response, "reverse geocode");
+};
