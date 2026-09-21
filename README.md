@@ -64,7 +64,7 @@ Una moderna web application per il meteo in tempo reale, ispirata all'interfacci
 La codebase è strutturata per domini funzionali, mantenendo una netta separazione delle responsabilità:
 
 ```text
-weather-app/
+castform-weather/
 ├── public/                 # Asset statici (immagini, sprite Pokémon, icone)
 ├── src/
 │   ├── components/
@@ -110,8 +110,8 @@ weather-app/
 
 ### 1. Clonazione del Repository
 ```bash
-git clone https://github.com/bonfiglioalessio/weather-app.git
-cd weather-app
+git clone https://github.com/bonfiglioalessio/castform-weather.git
+cd castform-weather
 ```
 
 ### 2. Installazione delle Dipendenze
