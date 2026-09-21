@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatTime } from "../helpers/dateUtils";
+import { formatTime } from "../../utils/dateUtils";
 import Chart from "./Chart";
 
 const Forecast = ({ data = [] }) => {

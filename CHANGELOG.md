@@ -55,6 +55,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Harmonized chart card styling with the application's light glassmorphic design system.
 
 ### Changed
+- Reorganized codebase into a clean, modern layered architecture:
+  - Centralized all styling under `src/styles/` (`index.sass`, `App.sass`, and domain partials).
+  - Categorized UI components by functional domain (`src/components/layout/`, `src/components/weather/`, `src/components/castform/`).
+  - Standardized helpers into `src/utils/` (`castformUtils.js`, `dateUtils.js`).
+  - Purged dead legacy files (`Next5days.jsx`, `_nextdays.sass`, `Weather.jsx`, `_weather.sass`, `getDate.jsx`), reducing bundle weight.
 - Upgraded core tooling and dependencies: Vite 6, TypeScript 5.7, Recharts 3, React 18.3, Sass 1.85.
 - Resolved all 42 security vulnerabilities (0 vulnerabilities found in `yarn audit`).
 - Removed bloated dependencies `moment` and `clsx` in favor of native JavaScript APIs and template literals, reducing bundle size by ~77 kB.

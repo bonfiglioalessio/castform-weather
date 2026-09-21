@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { CASTFORM_FORMS } from "../helpers/castformUtils";
+import { CASTFORM_FORMS } from "../../utils/castformUtils";
 
 /**
  * VisionOS Glassmorphic Pokédex Modal for Castform (#351)

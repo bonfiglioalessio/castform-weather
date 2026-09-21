@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import "./App.sass";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Forecast from "./components/Forecast";
-import DailyForecast from "./components/DailyForecast";
-import Card from "./components/Card";
-import WeatherParticles from "./components/WeatherParticles";
-import PokedexModal from "./components/PokedexModal";
-import { getCastformForm } from "./helpers/castformUtils";
+import "./styles/App.sass";
+import Navbar from "./components/layout/Navbar";
+import Hero from "./components/weather/Hero";
+import Forecast from "./components/weather/Forecast";
+import DailyForecast from "./components/weather/DailyForecast";
+import Card from "./components/weather/Card";
+import WeatherParticles from "./components/castform/WeatherParticles";
+import PokedexModal from "./components/castform/PokedexModal";
+import { getCastformForm } from "./utils/castformUtils";
 import {
   getCurrentWeather,
   getForecast,

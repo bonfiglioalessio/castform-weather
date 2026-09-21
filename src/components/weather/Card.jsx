@@ -1,4 +1,4 @@
-import { degToCompass, getSunStatus, formatUnixTime } from "../helpers/dateUtils";
+import { degToCompass, getSunStatus, formatUnixTime } from "../../utils/dateUtils";
 
 const Card = (props) => {
   const {

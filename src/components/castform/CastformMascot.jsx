@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { getCastformForm } from "../helpers/castformUtils";
+import { getCastformForm } from "../../utils/castformUtils";
 
 const CastformMascot = ({
   condition = "",

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import CastformMascot from "./CastformMascot";
-import { getCastformForm } from "../helpers/castformUtils";
+import CastformMascot from "../castform/CastformMascot";
+import { getCastformForm } from "../../utils/castformUtils";
 
 const Hero = ({
   city,

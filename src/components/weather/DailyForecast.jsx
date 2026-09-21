@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import {
   getDateKey,
   formatDayLabel,
-} from "../helpers/dateUtils";
+} from "../../utils/dateUtils";
 
 const DailyForecast = ({ data = [], currentTemp = null }) => {
   const daysList = useMemo(() => {
