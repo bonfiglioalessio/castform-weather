@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./App.sass";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -7,6 +7,11 @@ import Card from "./components/Card";
 import Forecast from "./components/Forecast";
 import getDate from "./helpers/getDate";
 import Next5days from "./components/Next5days";
+import {
+  getCurrentWeather,
+  getForecast,
+  searchCities,
+} from "./services/weatherApi";
 
 function App() {
   const [data, setData] = useState([]);
@@ -14,51 +19,43 @@ function App() {
   const [city, setCity] = useState("");
   const [forecast, setForecast] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState(null);
 
-  const successCallback = (pos) => {
-    const { latitude: lat, longitude: lon } = pos.coords;
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCity(data);
-        fetchForecast({ lat, lon });
-      });
+  const fetchCityDetails = useCallback(async ({ lat, lon }) => {
+    try {
+      setError(null);
+      const [currentData, forecastData] = await Promise.all([
+        getCurrentWeather(lat, lon),
+        getForecast(lat, lon),
+      ]);
+      setCity(currentData);
+      setForecast(forecastData);
+    } catch (err) {
+      console.error("Error fetching weather details:", err);
+      setError(err.message || "Failed to load weather data");
+    }
+  }, []);
+
+  const successCallback = useCallback(
+    (pos) => {
+      const { latitude: lat, longitude: lon } = pos.coords;
+      fetchCityDetails({ lat, lon });
+    },
+    [fetchCityDetails]
+  );
+
+  const errorCallback = (err) => {
+    console.warn("Geolocation error:", err);
+    setError("Unable to retrieve your location. Please search for a city.");
   };
 
-  const errorCallback = (error) => {
-    console.log(error);
-  };
-
-  const getLocation = () => {
+  const getLocation = (e) => {
+    if (e) e.preventDefault();
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser.");
+      return;
+    }
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  };
-
-  const fetchData = async () => {
-    const response = await fetch(
-      // `http://api.positionstack.com/v1/forward?access_key=d93f994bb49b872c6e324a21dc2afb9b&query=${input}`
-      `https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=10&appid=3253741a4866a77b255992e2c6c3db41`
-    );
-    const json = await response.json();
-    setData(json);
-  };
-
-  const fetchForecast = async ({ lat, lon }) => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric&units=metric`
-    );
-    const json = await response.json();
-    setForecast(json);
-  };
-
-  const fetchCityDetails = async ({ lat, lon }) => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=3253741a4866a77b255992e2c6c3db41&units=metric`
-    );
-    const data = await response.json();
-    setCity(data);
-    fetchForecast({ lat, lon });
   };
 
   useEffect(() => {
@@ -68,17 +65,31 @@ function App() {
     }
   }, [city]);
 
+  // Debounced search for city suggestions (350ms)
   useEffect(() => {
-    if (input.length >= 3) {
-      fetchData();
+    if (input.trim().length < 3) {
+      setData([]);
+      return;
     }
+
+    const timer = setTimeout(async () => {
+      try {
+        const results = await searchCities(input.trim());
+        setData(results || []);
+      } catch (err) {
+        console.error("Error searching cities:", err);
+      }
+    }, 350);
+
+    return () => clearTimeout(timer);
   }, [input]);
 
   const handleChange = (e) => {
-    if (e.target.value === "") {
+    const val = e.target.value;
+    if (val === "") {
       setData([]);
     }
-    setInput(e.target.value);
+    setInput(val);
   };
 
   const handleClick = ({ lat, lon }) => {
@@ -91,8 +102,14 @@ function App() {
         onClick={handleClick}
         filteredArr={data}
         value={input}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
       />
+
+      {error && (
+        <div style={{ color: "#ef4444", fontSize: "0.85rem", margin: "0.5rem 0", textAlign: "center" }}>
+          {error}
+        </div>
+      )}
 
       {city !== "" ? (
         <>
@@ -100,12 +117,13 @@ function App() {
 
           <Weather
             temperature={city.main?.temp}
-            img={city?.weather[0].icon}
-            weather_descriptions={city.weather[0].main}
+            img={city?.weather?.[0]?.icon}
+            weather_descriptions={city.weather?.[0]?.main}
+            description={city.weather?.[0]?.description}
           />
 
           <Card
-            visibility={city?.visibility / 1000}
+            visibility={city?.visibility ? city.visibility / 1000 : 0}
             wind_speed={city?.wind?.speed}
             humidity={city?.main?.humidity}
           />
@@ -115,24 +133,28 @@ function App() {
             data={forecast?.list}
           />
 
-          {isVisible ? (
+          {isVisible && (
             <Next5days
               data={forecast}
               city={city.name}
               country={city.sys?.country}
               clickBack={() => setIsVisible(!isVisible)}
             />
-          ) : null}
+          )}
         </>
       ) : (
-        <>
+        <div style={{ textAlign: "center", marginTop: "3rem" }}>
           <p>Type the city in input</p>
-          <p>
-            <a href="#" onClick={getLocation}>
+          <p style={{ marginTop: "0.5rem" }}>
+            <a
+              href="#location"
+              onClick={getLocation}
+              style={{ color: "#38bdf8", textDecoration: "underline", cursor: "pointer" }}
+            >
               or click here to use your location!
             </a>
           </p>
-        </>
+        </div>
       )}
     </div>
   );

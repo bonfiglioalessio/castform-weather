@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Project governance and guidelines (`AGENTS.md`, `GEMINI.md`).
 - Branching workflow and conventional commit standards.
+- Centralized `weatherApi` service with secure API key access via `.env.local` and `.env.example` template.
+- Debounced city autocomplete search (350ms) to protect free-tier API rate limits.
+- Network and geolocation error feedback in `App` component.
 
 ### Fixed
 - Chronological time order, dynamic temperature scaling, and gradient presentation in forecast chart.
