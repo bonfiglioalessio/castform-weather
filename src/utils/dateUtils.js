@@ -43,14 +43,6 @@ export const formatDayLabel = (dateKey, isShort = false) => {
   return target.toLocaleDateString("en-US", { weekday: isShort ? "short" : "long" });
 };
 
-export const formatMonthDay = (dateKey) => {
-  if (!dateKey) return "";
-  const [year, month, day] = dateKey.split("-").map(Number);
-  const target = new Date(year, month - 1, day);
-  const monthName = target.toLocaleDateString("en-US", { month: "short" });
-  const dayNum = target.getDate();
-  return `${monthName} ${dayNum}`;
-};
 
 /**
  * Convert wind angle (degrees 0-360) to cardinal direction
