@@ -1,35 +1,44 @@
 section
-    display: flex
-    flex-direction: column
-    gap: 1rem
+  display: flex
+  flex-direction: column
+  gap: 1rem
 
 .card_container
-    display: flex
-    justify-content: space-between
-    border: 1px solid var(--light)
-    align-items: center
-    border-radius: 1rem
-    height: 80px
-    padding: 1.5rem
-    background-color: var(--light)
-    backdrop-filter: blur(10px)
-    -webkit-backdrop-filter: blur(10px)
-    border: .1px solid #e6e6e6a9
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-radius: 1rem
+  min-height: 78px
+  padding: 1rem 1.25rem
+  background-color: var(--light)
+  backdrop-filter: blur(10px)
+  -webkit-backdrop-filter: blur(10px)
+  border: 1px solid rgba(230, 230, 230, 0.7)
+  cursor: pointer
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease
+
+  &:hover
+    transform: translateY(-1px)
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+
+  &.active
+    border-color: var(--title)
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06)
 
 .card_img
-    display: flex
-    align-items: center
-    gap: 1rem
-    & img
-        padding: .2rem
+  display: flex
+  align-items: center
+  gap: 0.75rem
+  & img
+    padding: 0.1rem
 
 .card_box
-    width: 45px
-    height: 45px
-    border-radius: .5rem
-    display: flex
-    align-items: center
-    justify-content: center
+  width: 44px
+  height: 44px
+  border-radius: 0.6rem
+  display: flex
+  align-items: center
+  justify-content: center
 
 .card_detail
-    padding-right: 1.5rem
+  padding-right: 0.5rem
