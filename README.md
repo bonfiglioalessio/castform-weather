@@ -1,6 +1,6 @@
-# 🌤️ Weather App & Castform Companion
+# 🌤️ Castform Weather
 
-Una moderna web application per il meteo in tempo reale, ispirata all'interfaccia di Apple Weather, con design glassmorphic premium, grafici orari interattivi, previsioni a 7 giorni e una simpatica mascotte interattiva Pokémon: **Castform**!
+Una moderna web application per il meteo in tempo reale, ispirata all'interfaccia di Apple Weather, con design glassmorphic premium, grafici orari interattivi, previsioni a 7 giorni e la mascotte interattiva Pokémon: **Castform** (#351)!
 
 ![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-6.4-646CFF?style=flat-square&logo=vite&logoColor=white)
@@ -8,6 +8,7 @@ Una moderna web application per il meteo in tempo reale, ispirata all'interfacci
 ![Sass](https://img.shields.io/badge/Sass-1.85-CC6699?style=flat-square&logo=sass&logoColor=white)
 ![Recharts](https://img.shields.io/badge/Recharts-3.10-22B5BF?style=flat-square)
 ![OpenWeatherMap](https://img.shields.io/badge/API-OpenWeatherMap-EB6E4B?style=flat-square&logo=openweathermap&logoColor=white)
+![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
 ---
 
@@ -146,6 +147,23 @@ L'applicazione sarà disponibile su `http://localhost:5173/`.
 | `yarn dev` | Avvia il server di sviluppo locale con Hot Module Replacement (Vite) |
 | `yarn build` | Esegue il controllo dei tipi (`tsc`) e compila il bundle di produzione in `dist/` |
 | `yarn preview` | Avvia un server locale per visualizzare in anteprima la build di produzione |
+
+---
+
+## 🌐 Deploy su Netlify
+
+Il progetto è preconfigurato per il deployment continuo su **[Netlify](https://www.netlify.com/)** tramite il file `netlify.toml`.
+
+### Passaggi per il Deploy:
+1. Collega il repository GitHub su Netlify (*Add new site > Import an existing project*).
+2. Seleziona il branch di produzione: **`main`**.
+3. Le configurazioni di build verranno caricate automaticamente dal file `netlify.toml`:
+   - **Build command**: `yarn build`
+   - **Publish directory**: `dist`
+4. **Variabili d'ambiente**:
+   - Vai in **Site configuration** > **Environment variables**.
+   - Crea la variabile `VITE_OPENWEATHER_API_KEY` inserendo la tua chiave OpenWeatherMap.
+5. Clicca su **Deploy site**.
 
 ---
 

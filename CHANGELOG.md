@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Netlify continuous deployment configuration (`netlify.toml`) with build specifications, SPA rewrite redirects, and HTTP security headers.
+- Netlify deployment guide and setup badge in `README.md`.
+
+### Changed
+- Standardized project package name and branding to **Castform Weather** (`castform-weather`).
+
 ## [1.0.0] - 2026-09-21
 
 ### Added
