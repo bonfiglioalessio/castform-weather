@@ -1,3 +1,7 @@
+import { useState, useMemo } from "react";
+import CastformMascot from "./CastformMascot";
+import { getCastformForm } from "../helpers/castformUtils";
+
 const Hero = ({
   city,
   country,
@@ -8,11 +12,18 @@ const Hero = ({
   img,
   feels_like = null,
 }) => {
+  const [showDialogue, setShowDialogue] = useState(false);
+
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "short",
     day: "numeric",
     month: "short",
   });
+
+  const castformForm = useMemo(
+    () => getCastformForm(description, img, temperature),
+    [description, img, temperature]
+  );
 
   return (
     <section className="glass_card hero_glass_card">
@@ -40,20 +51,20 @@ const Hero = ({
       </div>
 
       <div className="hero_card_body">
-        <div className="hero_temp_stage">
-          <span className="hero_temp_number">{temperature}</span>
-          <span className="hero_temp_deg">°</span>
-        </div>
+        <div className="hero_primary_metrics">
+          <div className="hero_temp_stage">
+            <span className="hero_temp_number">{temperature}</span>
+            <span className="hero_temp_deg">°</span>
+          </div>
 
-        <div className="hero_condition_block">
           <div className="hero_condition_line">
             {img && (
               <img
                 src={`https://openweathermap.org/img/wn/${img}.png`}
                 alt={description || ""}
                 className="hero_mini_icon"
-                width={30}
-                height={30}
+                width={26}
+                height={26}
               />
             )}
             <span className="hero_condition_name">{description || "Clear"}</span>
@@ -63,7 +74,41 @@ const Hero = ({
             <span className="hero_feels_text">Feels like {feels_like}°</span>
           )}
         </div>
+
+        <div className="hero_mascot_slot">
+          <CastformMascot
+            condition={description}
+            icon={img}
+            temp={temperature}
+            onToggleDialogue={() => setShowDialogue((prev) => !prev)}
+            isDialogueOpen={showDialogue}
+          />
+        </div>
       </div>
+
+      {showDialogue && (
+        <div className="hero_castform_dialogue">
+          <div className="dialogue_bubble_header">
+            <div className="dialogue_identity">
+              <span className="bubble_pokedex_id">#351 · Castform</span>
+              <span className="bubble_ability">Ability: Forecast</span>
+            </div>
+            <button
+              type="button"
+              className="dialogue_close_btn"
+              onClick={() => setShowDialogue(false)}
+              aria-label="Close dialogue"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <p className="bubble_quote">"{castformForm.quote}"</p>
+          <span className="bubble_tip">💡 {castformForm.tip}</span>
+        </div>
+      )}
 
       {high !== null && low !== null && (
         <div className="hero_card_footer">
@@ -72,6 +117,7 @@ const Hero = ({
             <span className="range_sep">·</span>
             <span className="temp_arrow_high">↑</span> {high}°
           </div>
+          <span className="hero_forecast_badge">Weather Pokémon #351</span>
         </div>
       )}
     </section>

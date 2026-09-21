@@ -204,21 +204,17 @@ function App() {
         ) : (
           <div className="empty_glass_stage">
             <div className="glass_card empty_welcome_card">
-              <div className="welcome_glow_badge">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <circle cx="12" cy="12" r="5" />
-                  <line x1="12" y1="1" x2="12" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="23" />
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                  <line x1="1" y1="12" x2="3" y2="12" />
-                  <line x1="21" y1="12" x2="23" y2="12" />
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
+              <div className="welcome_castform_badge">
+                <img
+                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/351.png"
+                  alt="Castform"
+                  className="welcome_castform_img"
+                  width={84}
+                  height={84}
+                />
               </div>
-              <h2>Weather Intelligence</h2>
-              <p>Explore hyper-local weather, interactive temperature curves, and 5-day forecasts in ultra-modern visionOS glass style.</p>
+              <h2>Castform Weather</h2>
+              <p>The Weather Pokémon (#351) is ready! Tap below or search any city to watch Castform transform with live atmospheric conditions.</p>
 
               <button
                 type="button"

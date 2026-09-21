@@ -21,8 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Native Apple Weather 7-day (1-week) forecast with continuous proportional temperature gradient bars and live indicator dot.
   - Hourly forecast rail with segmented toggle for 24-hour interactive luminous curve chart.
   - Frosted visionOS interactive chart tooltip with blur backdrop, clear typography, and formatted weather descriptions.
-  - Bento Grid (2x2) with rotating SVG wind compass, radial humidity gauge, solar arc tracker (sunrise/sunset), and visibility/pressure clarity meters.
   - Fixed weekday labeling in forecast to show standard weekday abbreviations instead of informal names.
+- Brand identity and dynamic mascot integration featuring **Castform (#351 - The Weather Pokémon)**:
+  - Dynamic weather-driven transformations across 4 forms: **Sunny Form** (Fire 🔥), **Rainy Form** (Water 💧), **Snowy Form** (Ice ❄️), and **Normal Form** (Normal ☁️).
+  - Smooth floating levitation keyframe animations with form-specific elemental aura halos.
+  - Interactive dialogue speech bubble on click featuring Pokédex data, signature ability (*Forecast*), weather quotes, and comfort tips.
+  - Dedicated Castform welcome badge on the initial landing view.
+  - App rebranded to **Castform Weather** with high-contrast, scalable vector SVG favicon (`castform-favicon.svg`) and full metadata.
 
 ### Fixed
 - Chronological time order, dynamic temperature scaling, and gradient presentation in forecast chart.

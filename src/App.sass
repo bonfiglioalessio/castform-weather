@@ -117,18 +117,23 @@
     color: rgba(255, 255, 255, 0.72)
     line-height: 1.6
 
-.welcome_glow_badge
-  width: 72px
-  height: 72px
-  border-radius: 1.25rem
-  background: rgba(56, 189, 248, 0.18)
-  border: 1px solid rgba(56, 189, 248, 0.4)
-  box-shadow: 0 0 24px rgba(56, 189, 248, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.5)
+.welcome_castform_badge
+  width: 96px
+  height: 96px
+  border-radius: 2rem
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(255, 255, 255, 0.05) 70%)
+  border: 1px solid rgba(255, 255, 255, 0.25)
+  box-shadow: 0 0 32px rgba(56, 189, 248, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4)
   display: flex
   align-items: center
   justify-content: center
-  color: #38bdf8
-  animation: floatOrb 8s ease-in-out infinite alternate
+  animation: floatCastform 3.5s ease-in-out infinite alternate
+
+.welcome_castform_img
+  width: 80px
+  height: 80px
+  object-fit: contain
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4))
 
 .glass_cta_button
   display: inline-flex
