@@ -11,8 +11,9 @@ const Hero = ({
   low,
   img,
   feels_like = null,
+  onOpenPokedex,
 }) => {
-  const [showDialogue, setShowDialogue] = useState(false);
+  const [showDialogue, setShowDialogue] = useState(true);
 
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "short",
@@ -80,8 +81,6 @@ const Hero = ({
             condition={description}
             icon={img}
             temp={temperature}
-            onToggleDialogue={() => setShowDialogue((prev) => !prev)}
-            isDialogueOpen={showDialogue}
           />
         </div>
       </div>
@@ -117,7 +116,18 @@ const Hero = ({
             <span className="range_sep">·</span>
             <span className="temp_arrow_high">↑</span> {high}°
           </div>
-          <span className="hero_forecast_badge">Weather Pokémon #351</span>
+          {onOpenPokedex ? (
+            <button
+              type="button"
+              className="hero_pokedex_trigger_badge"
+              onClick={onOpenPokedex}
+              title="Open Castform Pokédex (#351)"
+            >
+              <span className="pokedex_badge_icon">📖</span> Pokédex #351
+            </button>
+          ) : (
+            <span className="hero_forecast_badge">Weather Pokémon #351</span>
+          )}
         </div>
       )}
     </section>

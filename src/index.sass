@@ -57,9 +57,24 @@ svg
 input,
 button,
 textarea,
-select
+select,
+[role="button"],
+[role="tab"],
+[tabindex]
   font: inherit
   color: inherit
+  outline: none
+  -webkit-tap-highlight-color: transparent
+
+  &:focus,
+  &:focus-visible,
+  &:active
+    outline: none
+
+*:focus,
+*:focus-visible,
+*:active
+  outline: none
 
 p,
 h1,

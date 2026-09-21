@@ -28,8 +28,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Interactive dialogue speech bubble on click featuring Pokédex data, signature ability (*Forecast*), weather quotes, and comfort tips.
   - Dedicated Castform welcome badge on the initial landing view.
   - App rebranded to **Castform Weather** with high-contrast, scalable vector SVG favicon (`castform-favicon.svg`) and full metadata.
+- **VisionOS Glassmorphic Pokédex Modal (#351)**:
+  - Interactive **Carousel / Slider** showcase with chevron navigation buttons, touch swipe gestures, and keyboard arrow controls.
+  - Form navigation slider dots with live weather synchronization (`LIVE` tag).
+  - Official stats (Height: 0.3 m, Weight: 0.8 kg, Hoenn Weather Institute origin).
+  - Dynamic **Weather Ball (Palla Clima)** move card showing real-time elemental alignment and doubled attack power (50 -> 100 ⚡) under live weather.
+  - Accessible dialog controls with keyboard `Escape` dismiss and frosted backdrop.
+- **Ambient Canvas Weather Particle Engine**:
+  - High-performance HTML5 `<canvas>` rendering system running behind glass cards.
+  - Dynamic particle behaviors customized per active weather condition: slanted raindrops with wind influence, drifting snow crystals, warm solar embers, misty cloud wisps, and twinkling night stars.
+  - Full accessibility integration respecting `prefers-reduced-motion`.
+- **Hero Card Improvements**:
+  - Castform speech dialogue bubble kept expanded by default with immediate weather commentary and comfort tips.
+  - Dedicated `[ 📖 Pokédex #351 ]` frosted glass pill trigger in the Hero footer.
 
 ### Fixed
+- Fixed hourly temperature trend chart header: flex-aligned title and constrained range badge (`.chart_range_badge`) to a compact inline pill on the right, eliminating full-width stretching and arrow edge clipping.
+- Replaced dark opaque modal backdrop with translucent frosted glass (`backdrop-filter: blur(28px) saturate(180%)`), allowing the live weather app underneath to stay clearly visible and blurred.
+- Fixed desktop Pokédex layout collision: moved 4-form switcher full-width above the two columns, preventing button text overflow and overlap with info cards.
+- Eliminated browser default focus outlines, rings, and tap highlights when clicking buttons, cards, tabs, and interactive elements.
+- Hidden scrollbars completely from the Pokédex modal card (`scrollbar-width: none`, Webkit scrollbar hidden) while keeping smooth native scrolling.
+- Fixed Pokédex modal layout squishing: introduced balanced 2-column desktop grid with anti-squash showcase stage (`min-height: 220px`, `overflow: visible`) preventing artwork clipping.
 - Chronological time order, dynamic temperature scaling, and gradient presentation in forecast chart.
 - Prevented multiline text wrapping on day card temperatures and refined expand chevron indicator.
 - Harmonized chart card styling with the application's light glassmorphic design system.

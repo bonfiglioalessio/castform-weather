@@ -1,38 +1,18 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { getCastformForm } from "../helpers/castformUtils";
 
 const CastformMascot = ({
   condition = "",
   icon = "",
   temp = null,
-  onToggleDialogue,
-  isDialogueOpen = false,
 }) => {
-  const [isBouncing, setIsBouncing] = useState(false);
-
   const form = useMemo(
     () => getCastformForm(condition, icon, temp),
     [condition, icon, temp]
   );
 
-  const handleClick = () => {
-    setIsBouncing(true);
-    if (onToggleDialogue) {
-      onToggleDialogue(form);
-    }
-    setTimeout(() => setIsBouncing(false), 600);
-  };
-
   return (
-    <div
-      className={`castform_mascot_wrapper ${isBouncing ? "bounce_pop" : ""} ${
-        isDialogueOpen ? "active_chat" : ""
-      }`}
-      onClick={handleClick}
-      role="button"
-      tabIndex={0}
-      title="Click Castform to chat!"
-    >
+    <div className="castform_mascot_wrapper">
       <div className="castform_aura" style={{ "--aura-color": form.auraColor }} />
 
       <div className="castform_sprite_container">

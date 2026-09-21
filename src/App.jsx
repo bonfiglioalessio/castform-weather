@@ -5,6 +5,9 @@ import Hero from "./components/Hero";
 import Forecast from "./components/Forecast";
 import DailyForecast from "./components/DailyForecast";
 import Card from "./components/Card";
+import WeatherParticles from "./components/WeatherParticles";
+import PokedexModal from "./components/PokedexModal";
+import { getCastformForm } from "./helpers/castformUtils";
 import {
   getCurrentWeather,
   getForecast,
@@ -18,6 +21,7 @@ function App() {
   const [forecast, setForecast] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPokedexOpen, setIsPokedexOpen] = useState(false);
 
   const fetchCityDetails = useCallback(async ({ lat, lon }) => {
     try {
@@ -130,8 +134,23 @@ function App() {
     };
   }, [forecast, city]);
 
+  // Active Castform Form based on live weather data
+  const currentCastformForm = useMemo(() => {
+    return getCastformForm(
+      city?.weather?.[0]?.description,
+      city?.weather?.[0]?.icon,
+      city?.main?.temp
+    );
+  }, [city]);
+
   return (
     <div className={`app_viewport ${weatherTheme}`}>
+      {/* Ambient Canvas Weather Particles */}
+      <WeatherParticles
+        theme={weatherTheme}
+        windSpeed={city?.wind?.speed || 10}
+      />
+
       <div className="ambient_canvas" aria-hidden="true">
         <div className="ambient_orb orb_1" />
         <div className="ambient_orb orb_2" />
@@ -167,6 +186,7 @@ function App() {
                   low={todayRange.low}
                   img={city?.weather?.[0]?.icon}
                   feels_like={city?.main?.feels_like ? Math.round(city.main.feels_like) : null}
+                  onOpenPokedex={() => setIsPokedexOpen(true)}
                 />
               </div>
 
@@ -253,6 +273,13 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* Castform #351 VisionOS Pokédex Modal */}
+      <PokedexModal
+        isOpen={isPokedexOpen}
+        onClose={() => setIsPokedexOpen(false)}
+        currentForm={currentCastformForm}
+      />
     </div>
   );
 }
