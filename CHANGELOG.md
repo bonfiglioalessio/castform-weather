@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-21
+
 ### Added
 - Comprehensive and professional `README.md` with features overview, Castform companion mechanics, tech stack, architecture layout, and setup guides.
 - Project governance and guidelines (`AGENTS.md`, `GEMINI.md`).
