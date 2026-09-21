@@ -5,6 +5,7 @@ import Hero from "./components/weather/Hero";
 import Forecast from "./components/weather/Forecast";
 import DailyForecast from "./components/weather/DailyForecast";
 import Card from "./components/weather/Card";
+import MobileTabBar from "./components/layout/MobileTabBar";
 import WeatherParticles from "./components/castform/WeatherParticles";
 import PokedexModal from "./components/castform/PokedexModal";
 import { getCastformForm } from "./utils/castformUtils";
@@ -23,6 +24,8 @@ function App() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isPokedexOpen, setIsPokedexOpen] = useState(false);
+  const [activeMobileTab, setActiveMobileTab] = useState("overview");
+
 
   const fetchCityDetails = useCallback(
     async ({ lat, lon, cityName, countryName }) => {
@@ -220,7 +223,13 @@ function App() {
               </div>
 
               {/* 2. Embedded 7-Day (1-Week) Forecast Card with Apple Range Bars */}
-              <div className="layout_section_daily">
+              <div
+                className={`layout_section_daily ${
+                  activeMobileTab !== "overview" && activeMobileTab !== "daily"
+                    ? "mobile_hidden"
+                    : ""
+                }`}
+              >
                 <DailyForecast
                   data={forecast?.list}
                   currentTemp={Math.round(city.main?.temp)}
@@ -230,12 +239,24 @@ function App() {
 
             <div className="dashboard_right_col">
               {/* 3. Hourly Forecast with Tabs (Rail & Trend Chart) */}
-              <div className="layout_section_hourly">
+              <div
+                className={`layout_section_hourly ${
+                  activeMobileTab !== "overview" && activeMobileTab !== "hourly"
+                    ? "mobile_hidden"
+                    : ""
+                }`}
+              >
                 <Forecast data={forecast?.list} />
               </div>
 
               {/* 4. Compact Bento Grid (Wind Compass, Humidity Ring, Sun Arc, Visibility) */}
-              <div className="layout_section_bento">
+              <div
+                className={`layout_section_bento ${
+                  activeMobileTab !== "overview" && activeMobileTab !== "bento"
+                    ? "mobile_hidden"
+                    : ""
+                }`}
+              >
                 <Card
                   wind_speed={Math.round((city?.wind?.speed || 0) * 3.6)}
                   wind_deg={city?.wind?.deg || 0}
@@ -250,6 +271,7 @@ function App() {
               </div>
             </div>
           </main>
+
         ) : (
           <div className="empty_glass_stage">
             <div className="glass_card empty_welcome_card">
@@ -308,7 +330,17 @@ function App() {
             </div>
           </div>
         )}
+
+        {city !== "" && (
+          <MobileTabBar
+            activeTab={activeMobileTab}
+            onTabChange={setActiveMobileTab}
+            onOpenPokedex={() => setIsPokedexOpen(true)}
+          />
+        )}
       </div>
+
+
 
       {/* Castform #351 VisionOS Pokédex Modal */}
       <PokedexModal
