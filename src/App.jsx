@@ -6,7 +6,9 @@ import Forecast from "./components/weather/Forecast";
 import DailyForecast from "./components/weather/DailyForecast";
 import Card from "./components/weather/Card";
 import MobileTabBar from "./components/layout/MobileTabBar";
+import Footer from "./components/layout/Footer";
 import WeatherParticles from "./components/castform/WeatherParticles";
+
 import PokedexModal from "./components/castform/PokedexModal";
 import { getCastformForm } from "./utils/castformUtils";
 import {
@@ -331,6 +333,8 @@ function App() {
           </div>
         )}
 
+        <Footer />
+
         {city !== "" && (
           <MobileTabBar
             activeTab={activeMobileTab}
@@ -339,6 +343,7 @@ function App() {
           />
         )}
       </div>
+
 
 
 
