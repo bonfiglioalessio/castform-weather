@@ -7,20 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-22
+
 ### Added
+- **iOS 27 Glassmorphism Bottom Tab Bar**: Floating frosted glass capsule navigation bar on mobile viewports (<900px) featuring 5 interactive tabs: Weather, Hourly, 7-Day, Details, and direct Pokédex modal trigger with safe-area spacing.
 - Netlify continuous deployment configuration (`netlify.toml`) with build specifications, SPA rewrite redirects, and HTTP security headers.
 - Netlify deployment guide and setup badge in `README.md`.
 
 ### Changed
 - Standardized project package name and branding to **Castform Weather** (`castform-weather`).
+- Cleaned up dead code and orphaned legacy assets (`src/assets/`, `public/images/`, `public/vite.svg`, unused CSS utility classes and orphaned utility functions).
+- Translated mobile tab bar navigation labels into English.
 
 ### Security
 - Removed hardcoded fallback OpenWeather API key from `weatherApi.js` to strictly enforce environment variables (`VITE_OPENWEATHER_API_KEY`).
 
 ### Fixed
+- **7-Day Forecast Layout**: Restored the dedicated Sass stylesheet (`_daily.sass`) with the 5-column CSS grid layout and proportional temperature range bars, resolving vertical element stacking.
 - Fixed Netlify deployment build failure by enforcing Node.js v20 LTS in `netlify.toml`, `.nvmrc`, and `package.json` engines to satisfy Recharts and Vite dependencies.
 
 ## [1.0.0] - 2026-09-21
+
 
 ### Added
 - Comprehensive and professional `README.md` with features overview, Castform companion mechanics, tech stack, architecture layout, and setup guides.
