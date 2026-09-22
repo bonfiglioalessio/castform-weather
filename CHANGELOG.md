@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-22
+
+### Added
+- **Footer Component**: Elegant glass-styled footer featuring development attribution ("Developed by Alessio Bonfiglio") with a direct link to the personal portfolio (https://bonfiglioalessio.github.io) and mobile safe-area spacing.
+
 ## [1.1.0] - 2026-09-22
+
 
 ### Added
 - **iOS 27 Glassmorphism Bottom Tab Bar**: Floating frosted glass capsule navigation bar on mobile viewports (<900px) featuring 5 interactive tabs: Weather, Hourly, 7-Day, Details, and direct Pokédex modal trigger with safe-area spacing.
