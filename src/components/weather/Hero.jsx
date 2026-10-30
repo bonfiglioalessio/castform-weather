@@ -105,7 +105,14 @@ const Hero = ({
             </button>
           </div>
           <p className="bubble_quote">"{castformForm.quote}"</p>
-          <span className="bubble_tip">💡 {castformForm.tip}</span>
+          <span className="bubble_tip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'inline', verticalAlign: '-1px', marginRight: '6px' }}>
+              <path d="M9 18h6" />
+              <path d="M10 22h4" />
+              <path d="M12 2a7 7 0 0 0-7 7c0 3 2 5.5 3 6.5h8c1-1 3-3.5 3-6.5a7 7 0 0 0-7-7z" />
+            </svg>
+            {castformForm.tip}
+          </span>
         </div>
       )}
 
@@ -123,7 +130,11 @@ const Hero = ({
               onClick={onOpenPokedex}
               title="Open Castform Pokédex (#351)"
             >
-              <span className="pokedex_badge_icon">📖</span> Pokédex #351
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'inline', verticalAlign: '-1px', marginRight: '6px' }}>
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+              </svg>
+              Pokédex #351
             </button>
           ) : (
             <span className="hero_forecast_badge">Weather Pokémon #351</span>

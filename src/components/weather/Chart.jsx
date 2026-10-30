@@ -97,12 +97,6 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
           margin={{ top: 12, right: 8, left: -22, bottom: 0 }}
           onMouseMove={onMouseMove}
         >
-          <defs>
-            <linearGradient id="visionChartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.45} />
-              <stop offset="90%" stopColor="#38bdf8" stopOpacity={0.0} />
-            </linearGradient>
-          </defs>
           <CartesianGrid
             strokeDasharray="4 4"
             vertical={false}
@@ -130,15 +124,15 @@ const Chart = ({ data = [], day, minTemp, maxTemp, onMouseMove }) => {
             type="monotone"
             dataKey="temp"
             stroke="#38bdf8"
-            strokeWidth={2.5}
+            strokeWidth={2}
             fillOpacity={1}
-            fill="url(#visionChartGrad)"
-            dot={{ r: 3.5, fill: "#38bdf8", strokeWidth: 1.5, stroke: "#ffffff" }}
+            fill="rgba(56, 189, 248, 0.08)"
+            dot={{ r: 3, fill: "#38bdf8", strokeWidth: 1, stroke: "#ffffff" }}
             activeDot={{
-              r: 5.5,
+              r: 5,
               fill: "#ffffff",
               stroke: "#38bdf8",
-              strokeWidth: 2.5,
+              strokeWidth: 2,
             }}
           />
         </AreaChart>

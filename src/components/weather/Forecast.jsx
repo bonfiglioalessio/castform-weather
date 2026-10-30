@@ -38,7 +38,7 @@ const Forecast = ({ data = [] }) => {
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
           </svg>
-          <span className="forecast_card_title">HOURLY FORECAST</span>
+          <span className="forecast_card_title">Hourly forecast</span>
         </div>
 
         <div className="vision_segmented_control">

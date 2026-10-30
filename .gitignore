@@ -10,7 +10,11 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# Local env & tools
 *.local
+.taste-skill/
+.agents/
+skills-lock.json
 
 # Editor directories and files
 .vscode/*

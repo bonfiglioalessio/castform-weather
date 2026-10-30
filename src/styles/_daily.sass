@@ -7,18 +7,17 @@
   align-items: center
   gap: 0.45rem
   margin-bottom: 0.65rem
-  padding-bottom: 0.5rem
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+  padding-bottom: 0.25rem
 
 .calendar_icon
   color: #38bdf8
 
 .daily_heading
-  font-size: 0.76rem
-  font-weight: 600
-  color: rgba(255, 255, 255, 0.7)
-  letter-spacing: 0.05em
-  text-transform: uppercase
+  font-size: 0.82rem
+  font-weight: 500
+  color: var(--secondary)
+  letter-spacing: normal
+  text-transform: none
 
 .daily_list
   display: flex
@@ -31,11 +30,7 @@
   grid-template-columns: 48px 28px 32px 1fr 32px
   align-items: center
   gap: 0.5rem
-  padding: 0.65rem 0
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06)
-
-  &:last-child
-    border-bottom: none
+  padding: 0.55rem 0
 
 .daily_day_name
   font-size: 0.88rem
@@ -55,11 +50,12 @@
   font-weight: 500
   color: rgba(255, 255, 255, 0.6)
   text-align: right
+  font-variant-numeric: tabular-nums
 
 .daily_bar_track
   position: relative
   height: 4.5px
-  background: rgba(0, 0, 0, 0.25)
+  background: rgba(255, 255, 255, 0.08)
   border-radius: 9999px
   overflow: visible
   margin: 0 0.25rem
@@ -69,8 +65,7 @@
   top: 0
   height: 100%
   border-radius: 9999px
-  background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 40%, #fbbf24 100%)
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4)
+  background: var(--accent-cyan)
 
 .daily_current_dot
   position: absolute
@@ -79,7 +74,7 @@
   height: 10.5px
   border-radius: 50%
   background: #ffffff
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 0, 0, 0.4)
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4)
   transform: translateX(-50%)
   z-index: 2
 
@@ -88,3 +83,4 @@
   font-weight: 600
   color: #ffffff
   text-align: left
+  font-variant-numeric: tabular-nums

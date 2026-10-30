@@ -39,7 +39,7 @@ const Card = (props) => {
                 <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
               </svg>
             </div>
-            <span className="bento_label">WIND</span>
+            <span className="bento_label">Wind</span>
           </div>
 
           <div className="bento_center_row">
@@ -64,7 +64,7 @@ const Card = (props) => {
           </div>
 
           <div className="bento_footer_text">
-            <span>{compassDir} · {wind_speed < 15 ? "Gentle Breeze" : wind_speed < 30 ? "Moderate Wind" : "Strong Gusts"}</span>
+            <span>{compassDir} · {wind_speed < 15 ? "Gentle breeze" : wind_speed < 30 ? "Moderate wind" : "Strong gusts"}</span>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ const Card = (props) => {
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
               </svg>
             </div>
-            <span className="bento_label">HUMIDITY</span>
+            <span className="bento_label">Humidity</span>
           </div>
 
           <div className="bento_center_row">
@@ -113,7 +113,7 @@ const Card = (props) => {
           </div>
 
           <div className="bento_footer_text">
-            <span>{dewPoint !== null ? `Dew point is ${dewPoint}° right now` : "Comfortable moisture level"}</span>
+            <span>{dewPoint !== null ? `Dew point: ${dewPoint}°` : "Comfortable moisture level"}</span>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ const Card = (props) => {
                 <line x1="21" y1="12" x2="23" y2="12" />
               </svg>
             </div>
-            <span className="bento_label">SUN & TWILIGHT</span>
+            <span className="bento_label">Sun & twilight</span>
           </div>
 
           <div className="sun_center_stage">
@@ -174,7 +174,7 @@ const Card = (props) => {
                 <circle cx="12" cy="12" r="3" />
               </svg>
             </div>
-            <span className="bento_label">VISIBILITY</span>
+            <span className="bento_label">Visibility</span>
           </div>
 
           <div className="bento_big_val_wrap">

@@ -40,25 +40,7 @@ const DailyForecast = ({ data = [], currentTemp = null }) => {
       };
     });
 
-    // Provide a complete 7-day (1 week) forecast
-    const entries = [...rawEntries];
-    if (entries.length > 0 && entries.length < 7) {
-      const last = entries[entries.length - 1];
-      const [year, month, day] = last.dateKey.split("-").map(Number);
-      const nextDate = new Date(year, month - 1, day + 1);
-      const nextKey = `${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, "0")}-${String(nextDate.getDate()).padStart(2, "0")}`;
-
-      entries.push({
-        dateKey: nextKey,
-        dayLabel: formatDayLabel(nextKey, true),
-        isToday: false,
-        minTemp: last.minTemp,
-        maxTemp: last.maxTemp,
-        weather: last.weather,
-      });
-    }
-
-    return entries.slice(0, 7);
+    return rawEntries;
   }, [data]);
 
   // Overall min and max across all 7 days for the proportional range bars
@@ -93,7 +75,7 @@ const DailyForecast = ({ data = [], currentTemp = null }) => {
           <line x1="8" y1="2" x2="8" y2="6" />
           <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
-        <span className="daily_heading">7-DAY FORECAST</span>
+        <span className="daily_heading">{daysList.length > 0 ? `${daysList.length}-day forecast` : "Daily forecast"}</span>
       </div>
 
       <div className="daily_list">

@@ -34,9 +34,9 @@ export const CASTFORM_FORMS = {
     id: "snowy",
     name: "Snowy Form",
     type: "Ice",
-    typeColor: "#a855f7",
-    typeBg: "rgba(168, 85, 247, 0.2)",
-    auraColor: "rgba(192, 132, 252, 0.35)",
+    typeColor: "#06b6d4",
+    typeBg: "rgba(6, 182, 212, 0.16)",
+    auraColor: "rgba(6, 182, 212, 0.3)",
     artwork:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10015.png",
     sprite: "https://play.pokemonshowdown.com/sprites/ani/castform-snowy.gif",

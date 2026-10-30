@@ -185,12 +185,6 @@ function App() {
         windSpeed={city?.wind?.speed || 10}
       />
 
-      <div className="ambient_canvas" aria-hidden="true">
-        <div className="ambient_orb orb_1" />
-        <div className="ambient_orb orb_2" />
-        <div className="ambient_orb orb_3" />
-      </div>
-
       <div className="container app_main_container">
         <Navbar
           onClick={handleClick}
@@ -286,7 +280,7 @@ function App() {
                   height={84}
                 />
               </div>
-              <h2>Castform Weather</h2>
+              <h1 className="welcome_title">Castform Weather</h1>
               <p>The Weather Pokémon (#351) is ready! Tap below or search any city to watch Castform transform with live atmospheric conditions.</p>
 
               <button

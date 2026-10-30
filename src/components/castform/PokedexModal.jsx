@@ -151,10 +151,6 @@ const PokedexModal = ({ isOpen, onClose, currentForm = CASTFORM_FORMS.NORMAL }) 
               className="pokedex_carousel_stage"
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
-              style={{
-                borderColor: `${form.typeColor}55`,
-                background: `radial-gradient(circle at center, ${form.auraColor} 0%, rgba(12, 18, 32, 0.78) 75%)`,
-              }}
             >
               {/* Prev Carousel Arrow Button */}
               <button
@@ -267,7 +263,7 @@ const PokedexModal = ({ isOpen, onClose, currentForm = CASTFORM_FORMS.NORMAL }) 
                 <div className="move_pill">
                   <span className="pill_dim">State:</span>
                   <strong className={isBoosted ? "boosted_state" : ""}>
-                    {isBoosted ? "⚡ 2x Power (Boosted)" : "Standard (Normal)"}
+                    {isBoosted ? "2x Power (Boosted)" : "Standard (Normal)"}
                   </strong>
                 </div>
               </div>
