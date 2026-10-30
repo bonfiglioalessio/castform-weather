@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-30
+
+### Changed
+- **Anti-Slop UI & Design System Refactoring**: Replaced generic AI-slop patterns (floating ambient light orbs, heavy glassmorphism, specular edge highlights, and rainbow gradients) with solid, opaque surface tokens (`--surface-ground: #0a0e17`, `--surface-panel: #121824`), balanced contrasts, and high-visibility accessible focus rings.
+- **Visual Hierarchy & Typography**: Replaced forced ALL-CAPS uppercase labels across metric cards, hero sections, and forecasts with legible Sentence case (`Wind`, `Humidity`, `Hourly forecast`, etc.).
+- **Pokédex Modal & Card Polish**: Stripped redundant internal hairline borders from the carousel stage, dot indicators, navigation arrows, specs strip, move cards, move pills, and abilities; replaced the closed lore box with a minimal cyan-accented quote block.
+- **Hourly & Daily Forecast Realism**: Removed artificial 6th and 7th day duplication from OpenWeather 5-day/3-hour data; UI now accurately displays 5-day forecasts.
+- **Temperature Chart**: Replaced neon specular gradient with a flat 8% opacity area fill and clean stroke.
+
+### Fixed
+- **Accessibility & Focus Visibility**: Restored visible `:focus-visible` outline rings on buttons, navigation arrows, and inputs previously suppressed by global outline resets.
+
 ## [1.1.1] - 2026-09-22
 
 ### Added
